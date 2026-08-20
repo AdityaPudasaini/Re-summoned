@@ -1,0 +1,13 @@
+{
+  "FolderOrderSettings":[
+    {"name":"Fonts","order":4,"path":"folders/Fonts.yy",},
+    {"name":"Scripts","order":6,"path":"folders/Scripts.yy",},
+    {"name":"Rooms","order":1,"path":"folders/Rooms.yy",},
+    {"name":"Sounds","order":5,"path":"folders/Sounds.yy",},
+    {"name":"Sprites","order":2,"path":"folders/Sprites.yy",},
+    {"name":"Tilesets","order":3,"path":"folders/Tilesets.yy",},
+  ],
+  "ResourceOrderSettings":[
+    {"name":"sSwordAttack","order":1,"path":"sprites/sSwordAttack/sSwordAttack.yy",},
+  ],
+}
