@@ -1,13 +1,25 @@
 {
   "FolderOrderSettings":[
     {"name":"Fonts","order":4,"path":"folders/Fonts.yy",},
-    {"name":"Scripts","order":6,"path":"folders/Scripts.yy",},
+    {"name":"Objects","order":7,"path":"folders/Objects.yy",},
     {"name":"Rooms","order":1,"path":"folders/Rooms.yy",},
+    {"name":"Scripts","order":6,"path":"folders/Scripts.yy",},
     {"name":"Sounds","order":5,"path":"folders/Sounds.yy",},
     {"name":"Sprites","order":2,"path":"folders/Sprites.yy",},
     {"name":"Tilesets","order":3,"path":"folders/Tilesets.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"Menu","order":1,"path":"rooms/Menu/Menu.yy",},
+    {"name":"PlayerAnimateSprite","order":5,"path":"scripts/PlayerAnimateSprite/PlayerAnimateSprite.yy",},
+    {"name":"PlayerCollision","order":4,"path":"scripts/PlayerCollision/PlayerCollision.yy",},
+    {"name":"PlayerStateAttack","order":1,"path":"scripts/PlayerStateAttack/PlayerStateAttack.yy",},
+    {"name":"PlayerStateDash","order":6,"path":"scripts/PlayerStateDash/PlayerStateDash.yy",},
+    {"name":"PlayerStateFree","order":2,"path":"scripts/PlayerStateFree/PlayerStateFree.yy",},
+    {"name":"PlayerStateRun","order":3,"path":"scripts/PlayerStateRun/PlayerStateRun.yy",},
+    {"name":"sMenu","order":4,"path":"sprites/sMenu/sMenu.yy",},
+    {"name":"sSpawnRoom","order":2,"path":"sprites/sSpawnRoom/sSpawnRoom.yy",},
     {"name":"sSwordAttack","order":1,"path":"sprites/sSwordAttack/sSwordAttack.yy",},
+    {"name":"tcol","order":3,"path":"sprites/tcol/tcol.yy",},
+    {"name":"xCol","order":1,"path":"tilesets/xCol/xCol.yy",},
   ],
 }
