@@ -27,6 +27,7 @@
   },
   "name":"ReSummoned",
   "resources":[
+    {"id":{"name":"oMenu","path":"objects/oMenu/oMenu.yy",},},
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},
     {"id":{"name":"Menu","path":"rooms/Menu/Menu.yy",},},
     {"id":{"name":"SpawnPoint","path":"rooms/SpawnPoint/SpawnPoint.yy",},},
@@ -39,6 +40,7 @@
     {"id":{"name":"PlayerStateRun","path":"scripts/PlayerStateRun/PlayerStateRun.yy",},},
     {"id":{"name":"sIdle","path":"sprites/sIdle/sIdle.yy",},},
     {"id":{"name":"sMenu","path":"sprites/sMenu/sMenu.yy",},},
+    {"id":{"name":"sMenuButton","path":"sprites/sMenuButton/sMenuButton.yy",},},
     {"id":{"name":"sSpawnRoom","path":"sprites/sSpawnRoom/sSpawnRoom.yy",},},
     {"id":{"name":"sSwordAttack","path":"sprites/sSwordAttack/sSwordAttack.yy",},},
     {"id":{"name":"tcol","path":"sprites/tcol/tcol.yy",},},
@@ -48,8 +50,8 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"SpawnPoint","path":"rooms/SpawnPoint/SpawnPoint.yy",},},
     {"roomId":{"name":"Menu","path":"rooms/Menu/Menu.yy",},},
+    {"roomId":{"name":"SpawnPoint","path":"rooms/SpawnPoint/SpawnPoint.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

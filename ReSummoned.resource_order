@@ -9,6 +9,7 @@
     {"name":"Tilesets","order":3,"path":"folders/Tilesets.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"oMenu","order":1,"path":"objects/oMenu/oMenu.yy",},
     {"name":"Menu","order":1,"path":"rooms/Menu/Menu.yy",},
     {"name":"PlayerAnimateSprite","order":5,"path":"scripts/PlayerAnimateSprite/PlayerAnimateSprite.yy",},
     {"name":"PlayerCollision","order":4,"path":"scripts/PlayerCollision/PlayerCollision.yy",},
@@ -17,6 +18,7 @@
     {"name":"PlayerStateFree","order":2,"path":"scripts/PlayerStateFree/PlayerStateFree.yy",},
     {"name":"PlayerStateRun","order":3,"path":"scripts/PlayerStateRun/PlayerStateRun.yy",},
     {"name":"sMenu","order":4,"path":"sprites/sMenu/sMenu.yy",},
+    {"name":"sMenuButton","order":5,"path":"sprites/sMenuButton/sMenuButton.yy",},
     {"name":"sSpawnRoom","order":2,"path":"sprites/sSpawnRoom/sSpawnRoom.yy",},
     {"name":"sSwordAttack","order":1,"path":"sprites/sSwordAttack/sSwordAttack.yy",},
     {"name":"tcol","order":3,"path":"sprites/tcol/tcol.yy",},
