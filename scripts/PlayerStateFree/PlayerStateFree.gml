@@ -5,11 +5,11 @@ function PlayerStateFree()
 	// =====================================================
 	
 	if(keyActivate)
-{
-    state = PlayerStateDash;
-    moveDistanceRemaining = dashDistance;
-    return;
-}
+	{
+		state = PlayerStateDash;
+		moveDistanceRemaining = dashDistance;
+		return;
+	}
 
 
 	// =====================================================
@@ -55,8 +55,21 @@ function PlayerStateFree()
 
 	if(inputMagnitude != 0)
 	{
+		// Remember the direction we're moving
 		direction = inputDirection;
-		sprite_index = spriteWalk;
+
+		// Use the special 4-frame walking animation
+		// when moving left.
+		if(direction >= 135 && direction < 225)
+		{
+			sprite_index = sWalkLeft;
+		}
+		else
+		{
+			// Keep your normal idle sprite for the
+			// other directions for now.
+			sprite_index = spriteIdle;
+		}
 	}
 	else
 	{
@@ -64,12 +77,20 @@ function PlayerStateFree()
 	}
 
 
-	// Restart animation when changing sprites
+	// =====================================================
+	// RESET ANIMATION WHEN SPRITE CHANGES
+	// =====================================================
+
 	if(_oldSprite != sprite_index)
 	{
 		localFrame = 0;
+		image_index = 0;
 	}
-	
+
+
+	// =====================================================
+	// ANIMATE
+	// =====================================================
 
 	PlayerAnimateSprite();
 }
