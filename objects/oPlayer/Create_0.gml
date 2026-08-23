@@ -1,5 +1,5 @@
- image_xscale = 1;
-image_yscale = 1;
+image_xscale = 0.5;
+image_yscale = 0.5;
 
 collisionMap = noone;
 
@@ -16,6 +16,7 @@ spriteIdle   = sIdle;
 spriteWalk   = sWalkLeft;
 spriteRun    = sIdle;
 spriteAttack = sSwordAttack;
+facingDirection = 0; 
 
 
 // =====================================================

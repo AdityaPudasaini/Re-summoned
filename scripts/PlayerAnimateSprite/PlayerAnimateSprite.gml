@@ -1,16 +1,20 @@
 function PlayerAnimateSprite()
 {
-	// Advance animation
 	localFrame += animSpeed;
 
 
 	// =====================================================
-	// WALK LEFT
+	// WALKING ANIMATIONS
 	// =====================================================
 
-	if(sprite_index == sWalkLeft)
+	if(
+		sprite_index == sWalkDown ||
+		sprite_index == sWalkUp ||
+		sprite_index == sWalkLeft ||
+		sprite_index == sWalkRight
+	)
 	{
-		var _frameCount = sprite_get_number(sWalkLeft);
+		var _frameCount = sprite_get_number(sprite_index);
 
 		if(localFrame >= _frameCount)
 		{
@@ -24,17 +28,15 @@ function PlayerAnimateSprite()
 
 
 	// =====================================================
-	// NORMAL 4-DIRECTION SPRITES
+	// IDLE SPRITES
 	// =====================================================
 
-	var _framesPerRow = sprite_get_number(sprite_index) / 4;
+	var _frameCount = sprite_get_number(sprite_index);
 
-	if(localFrame >= _framesPerRow)
+	if(localFrame >= _frameCount)
 	{
 		localFrame = 0;
 	}
 
-	image_index =
-		(GetCardinalDirection() * _framesPerRow)
-		+ floor(localFrame);
+	image_index = floor(localFrame);
 }
