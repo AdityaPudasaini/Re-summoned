@@ -12,9 +12,8 @@ if (inputMagnitude != 0) {
     inputDirection = point_direction(0, 0, _xInput, _yInput);
 }
 
-keyRun      = keyboard_check(vk_shift);
 keyAttack   = keyboard_check_pressed(vk_space);
-keyActivate = keyboard_check_pressed(vk_shift); // same key does double duty, per PlayerStateFree/Run logic
+keyActivate = keyboard_check_pressed(vk_shift);
 
 // --- Run current state ---
 state();

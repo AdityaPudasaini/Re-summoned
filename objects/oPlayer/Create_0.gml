@@ -16,8 +16,15 @@ spriteIdle   = sIdle;
 spriteWalk   = sWalkLeft;
 spriteRun    = sIdle;
 spriteAttack = sSwordAttack;
+
 facingDirection = 0; 
 
+dashDirection = 0;
+
+dashDistance = 250;
+dashSpeed = 25;
+
+moveDistanceRemaining = 0;
 
 // =====================================================
 // MOVEMENT
@@ -62,15 +69,6 @@ attacking = false;
 
 attack_duration = 26;
 attack_timer = 0;
-
-
-// =====================================================
-// DASH STATE
-// =====================================================
-
-dashDistance = 64;
-dashSpeed = 8;
-moveDistanceRemaining = 0;
 
 
 // =====================================================

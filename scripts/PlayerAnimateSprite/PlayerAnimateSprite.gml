@@ -1,42 +1,47 @@
 function PlayerAnimateSprite()
 {
-	localFrame += animSpeed;
+    localFrame += animSpeed;
 
 
-	// =====================================================
-	// WALKING ANIMATIONS
-	// =====================================================
+    // =====================================================
+    // WALKING + DASH ANIMATIONS
+    // =====================================================
 
-	if(
-		sprite_index == sWalkDown ||
-		sprite_index == sWalkUp ||
-		sprite_index == sWalkLeft ||
-		sprite_index == sWalkRight
-	)
-	{
-		var _frameCount = sprite_get_number(sprite_index);
+    if(
+        sprite_index == sWalkDown ||
+        sprite_index == sWalkUp ||
+        sprite_index == sWalkLeft ||
+        sprite_index == sWalkRight ||
 
-		if(localFrame >= _frameCount)
-		{
-			localFrame = 0;
-		}
+        sprite_index == sDashDown ||
+        sprite_index == sDashUp ||
+        sprite_index == sDashLeft ||
+        sprite_index == sDashRight
+    )
+    {
+        var _frameCount = sprite_get_number(sprite_index);
 
-		image_index = floor(localFrame);
+        if(localFrame >= _frameCount)
+        {
+            localFrame = 0;
+        }
 
-		return;
-	}
+        image_index = floor(localFrame);
+
+        return;
+    }
 
 
-	// =====================================================
-	// IDLE SPRITES
-	// =====================================================
+    // =====================================================
+    // IDLE
+    // =====================================================
 
-	var _frameCount = sprite_get_number(sprite_index);
+    var _frameCount = sprite_get_number(sprite_index);
 
-	if(localFrame >= _frameCount)
-	{
-		localFrame = 0;
-	}
+    if(localFrame >= _frameCount)
+    {
+        localFrame = 0;
+    }
 
-	image_index = floor(localFrame);
+    image_index = floor(localFrame);
 }

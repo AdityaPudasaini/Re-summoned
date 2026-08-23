@@ -38,6 +38,7 @@
     {"id":{"name":"PlayerStateDash","path":"scripts/PlayerStateDash/PlayerStateDash.yy",},},
     {"id":{"name":"PlayerStateFree","path":"scripts/PlayerStateFree/PlayerStateFree.yy",},},
     {"id":{"name":"PlayerStateRun","path":"scripts/PlayerStateRun/PlayerStateRun.yy",},},
+    {"id":{"name":"nth","path":"sounds/nth/nth.yy",},},
     {"id":{"name":"sDashDown","path":"sprites/sDashDown/sDashDown.yy",},},
     {"id":{"name":"sDashLeft","path":"sprites/sDashLeft/sDashLeft.yy",},},
     {"id":{"name":"sDashRight","path":"sprites/sDashRight/sDashRight.yy",},},
