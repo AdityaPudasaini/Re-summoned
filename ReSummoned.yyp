@@ -27,6 +27,7 @@
   },
   "name":"ReSummoned ----",
   "resources":[
+    {"id":{"name":"oCamera","path":"objects/oCamera/oCamera.yy",},},
     {"id":{"name":"oExitSpawn","path":"objects/oExitSpawn/oExitSpawn.yy",},},
     {"id":{"name":"oFireball","path":"objects/oFireball/oFireball.yy",},},
     {"id":{"name":"oMenu","path":"objects/oMenu/oMenu.yy",},},
@@ -81,9 +82,9 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"Menu","path":"rooms/Menu/Menu.yy",},},
-    {"roomId":{"name":"SpawnPoint","path":"rooms/SpawnPoint/SpawnPoint.yy",},},
     {"roomId":{"name":"MainRoom","path":"rooms/MainRoom/MainRoom.yy",},},
     {"roomId":{"name":"FireBossRoom","path":"rooms/FireBossRoom/FireBossRoom.yy",},},
+    {"roomId":{"name":"SpawnPoint","path":"rooms/SpawnPoint/SpawnPoint.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

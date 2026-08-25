@@ -1,6 +1,7 @@
 {
   "FolderOrderSettings":[],
   "ResourceOrderSettings":[
+    {"name":"oCamera","order":1,"path":"objects/oCamera/oCamera.yy",},
     {"name":"FireBossRoom","order":1,"path":"rooms/FireBossRoom/FireBossRoom.yy",},
     {"name":"sFireBossRomm","order":4,"path":"sprites/sFireBossRomm/sFireBossRomm.yy",},
     {"name":"sSowrdAttackDown","order":1,"path":"sprites/sSowrdAttackDown/sSowrdAttackDown.yy",},
