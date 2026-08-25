@@ -4,6 +4,7 @@ var gui_h = display_get_gui_height();
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 
+
 for (var i = 0; i < array_length(menu_items); i++)
 {
     var active = (i == menu_selected);

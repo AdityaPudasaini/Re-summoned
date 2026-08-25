@@ -52,10 +52,69 @@ function PlayerStateFree()
 
     if(keyAttack)
     {
-        state = PlayerStateAttack;
+        // Remember the direction the player is facing
+        attackDirection = facingDirection;
+
+        // Choose the correct melee attack animation
+        switch(attackDirection)
+        {
+            case 0:
+                // DOWN
+                sprite_index = sSowrdAttackDown;
+                break;
+
+            case 1:
+                // UP
+                sprite_index = sSwordAttackUp;
+                break;
+
+            case 2:
+                // LEFT
+                sprite_index = sSwordAttackLeft;
+                break;
+
+            case 3:
+                // RIGHT
+                sprite_index = sSwordAttackRight;
+                break;
+        }
+
+        image_index = 0;
+        localFrame = 0;
         attack_timer = 0;
-        PlayerStateAttack();
+
+        state = PlayerStateAttack;
         return;
+    }
+
+
+    // =====================================================
+    // MAGIC ATTACK (LEFT / RIGHT ONLY)
+    // =====================================================
+
+    if(keyMagic)
+    {
+        if(facingDirection == 2 || facingDirection == 3)
+        {
+            magicDirection = facingDirection;
+            magicTimer = 0;
+            magicFired = false;
+
+            if(magicDirection == 2)
+            {
+                sprite_index = sMagicLeft;
+            }
+            else
+            {
+                sprite_index = sMagicRight;
+            }
+
+            image_index = 0;
+            localFrame = 0;
+
+            state = PlayerStateMagic;
+            return;
+        }
     }
 
 

@@ -1,0 +1,1 @@
+room_goto(MainRoom); // replace with your actual next room's name

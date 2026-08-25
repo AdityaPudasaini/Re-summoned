@@ -1,48 +1,51 @@
 function PlayerStateAttack()
 {
-    attacking = true;
-
-    // Lock movement while attacking
+    // Stop movement while attacking
     hSpeed = 0;
     vSpeed = 0;
 
-    // Keep collision active
-    PlayerCollision();
+    // Animate whichever directional attack sprite was selected
+    localFrame += animSpeed;
 
-    // Attack sprite
-    sprite_index = spriteAttack;
+    var _frameCount = sprite_get_number(sprite_index);
 
-    // Your sSwordAttack has exactly 5 frames
-    var _totalFrames = sprite_get_number(sprite_index);
+    if(localFrame >= _frameCount)
+    {
+        localFrame = _frameCount - 1;
+    }
 
-    // Increase attack timer
-    attack_timer++;
-
-    // Calculate current animation frame
-    var _attackFrame = floor(
-        (attack_timer / attack_duration) * _totalFrames
-    );
-
-    // Prevent going past the final frame
-    _attackFrame = clamp(
-        _attackFrame,
-        0,
-        _totalFrames - 1
-    );
-
-    // Set animation frame
-    image_index = _attackFrame;
+    image_index = floor(localFrame);
 
     // Finish attack
-    if (attack_timer >= attack_duration)
+    if(localFrame >= _frameCount - 1)
     {
+        facingDirection = attackDirection;
+
+        // Return to the correct idle/facing sprite
+        switch(facingDirection)
+        {
+            case 0:
+                sprite_index = sIdle;
+                break;
+
+            case 1:
+                sprite_index = sUp;
+                break;
+
+            case 2:
+                sprite_index = sLeft;
+                break;
+
+            case 3:
+                sprite_index = sRight;
+                break;
+        }
+
+        image_index = 0;
+        localFrame = 0;
         attacking = false;
         attack_timer = 0;
 
-        // Reset animation
-        image_index = 0;
-
-        // Return to free state
         state = PlayerStateFree;
     }
 }

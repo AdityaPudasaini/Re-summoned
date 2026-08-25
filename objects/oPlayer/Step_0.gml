@@ -14,6 +14,7 @@ if (inputMagnitude != 0) {
 
 keyAttack   = keyboard_check_pressed(vk_space);
 keyActivate = keyboard_check_pressed(vk_shift);
+keyMagic = keyboard_check_pressed(ord("F"));
 
 // --- Run current state ---
 state();

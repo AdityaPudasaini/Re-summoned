@@ -15,16 +15,22 @@ if (layer_exists("Col")) {
 spriteIdle   = sIdle;
 spriteWalk   = sWalkLeft;
 spriteRun    = sIdle;
-spriteAttack = sSwordAttack;
 
 facingDirection = 0; 
 
 dashDirection = 0;
 
 dashDistance = 250;
-dashSpeed = 25;
+dashSpeed = 16;
 
 moveDistanceRemaining = 0;
+
+attackDirection = 0;
+
+magicDirection = 0;
+magicTimer = 0;
+magicFired = false;
+
 
 // =====================================================
 // MOVEMENT
