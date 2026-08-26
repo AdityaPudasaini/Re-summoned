@@ -14,16 +14,17 @@
   "layers":[
     {"$GMRTileLayer":"","%Name":"TopLayer","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"TopLayer","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":64,"SerialiseWidth":96,"TileCompressedData":[
           -3851,-2147483648,2,3660,3661,-94,-2147483648,2,3756,3757,-94,-2147483648,2,3852,3853,-94,-2147483648,
-          2,3948,3949,-716,-2147483648,-4,0,-68,-2147483648,-5,0,-17,-2147483648,-8,0,-66,-2147483648,-5,0,-17,
-          -2147483648,-8,0,-66,-2147483648,5,0,4931,4932,0,0,-17,-2147483648,-3,0,2,4955,4956,-3,0,-66,-2147483648,
-          5,0,5027,5028,0,0,-17,-2147483648,-3,0,2,5051,5052,-3,0,-66,-2147483648,5,0,5123,5124,0,0,-17,-2147483648,
-          -3,0,2,5147,5148,-3,0,-66,-2147483648,5,0,5219,5220,0,0,-17,-2147483648,-3,0,2,5243,5244,-3,0,-66,-2147483648,
-          -5,0,-17,-2147483648,-8,0,-66,-2147483648,-5,0,-17,-2147483648,-8,0,-66,-2147483648,-5,0,-17,-2147483648,
-          -8,0,-66,-2147483648,-5,0,-17,-2147483648,-8,0,-89,-2147483648,-7,0,-225,-2147483648,
+          2,3948,3949,-716,-2147483648,-4,0,-68,-2147483648,2,0,4739,-3,0,-17,-2147483648,-8,0,-66,-2147483648,
+          2,0,4835,-3,0,-17,-2147483648,-4,0,1,4860,-3,0,-66,-2147483648,5,0,4931,4932,0,0,-17,-2147483648,-3,
+          0,2,4955,4956,-3,0,-66,-2147483648,5,0,5027,5028,0,0,-17,-2147483648,-3,0,2,5051,5052,-3,0,-66,-2147483648,
+          5,0,5123,5124,0,0,-17,-2147483648,-3,0,2,5147,5148,-3,0,-66,-2147483648,5,0,5219,5220,0,0,-17,-2147483648,
+          -3,0,2,5243,5244,-3,0,-66,-2147483648,-5,0,-17,-2147483648,-8,0,-66,-2147483648,-5,0,-17,-2147483648,
+          -8,0,-66,-2147483648,-5,0,-17,-2147483648,-8,0,-66,-2147483648,-5,0,-17,-2147483648,-8,0,-89,-2147483648,
+          -7,0,-225,-2147483648,
         ],"TileDataFormat":1,},"tilesetId":{"name":"xSpawnRoom","path":"tilesets/xSpawnRoom/xSpawnRoom.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
     {"$GMRInstanceLayer":"","%Name":"exit","depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_6B1F5842","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6B1F5842","objectId":{"name":"oExitSpawn","path":"objects/oExitSpawn/oExitSpawn.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":1.684475,"scaleX":7.0,"scaleY":3.0,"x":752.0069,"y":1024.4703,},
-      ],"layers":[],"name":"exit","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
+      ],"layers":[],"name":"exit","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":false,},
     {"$GMRInstanceLayer":"","%Name":"Instances","depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_33CC31B6","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_33CC31B6","objectId":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":736.0,"y":576.0,},
         {"$GMRInstance":"v4","%Name":"inst_39B34A8D","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_39B34A8D","objectId":{"name":"oCamera","path":"objects/oCamera/oCamera.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":704.0,"y":448.0,},

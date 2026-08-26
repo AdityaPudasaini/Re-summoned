@@ -76,6 +76,12 @@ attacking = false;
 attack_duration = 26;
 attack_timer = 0;
 
+isHurt = false;
+invincible = false;
+invincibilityTime = 60;
+invincibilityTimer = 0;
+invincibilityFlashTimer = 0;
+
 
 // =====================================================
 // STATE MACHINE

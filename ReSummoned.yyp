@@ -1,6 +1,6 @@
 {
   "$GMProject":"v1",
-  "%Name":"ReSummoned ----",
+  "%Name":"ReSummoned",
   "AudioGroups":[
     {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
@@ -25,7 +25,7 @@
   "MetaData":{
     "IDEVersion":"2026.0.0.16",
   },
-  "name":"ReSummoned ----",
+  "name":"ReSummoned",
   "resources":[
     {"id":{"name":"oCamera","path":"objects/oCamera/oCamera.yy",},},
     {"id":{"name":"oExitSpawn","path":"objects/oExitSpawn/oExitSpawn.yy",},},
@@ -53,6 +53,10 @@
     {"id":{"name":"sFireballLeft","path":"sprites/sFireballLeft/sFireballLeft.yy",},},
     {"id":{"name":"sFireballRight","path":"sprites/sFireballRight/sFireballRight.yy",},},
     {"id":{"name":"sFireBossRomm","path":"sprites/sFireBossRomm/sFireBossRomm.yy",},},
+    {"id":{"name":"sHurtDown","path":"sprites/sHurtDown/sHurtDown.yy",},},
+    {"id":{"name":"sHurtLeft","path":"sprites/sHurtLeft/sHurtLeft.yy",},},
+    {"id":{"name":"sHurtRight","path":"sprites/sHurtRight/sHurtRight.yy",},},
+    {"id":{"name":"sHurtUp","path":"sprites/sHurtUp/sHurtUp.yy",},},
     {"id":{"name":"sIdle","path":"sprites/sIdle/sIdle.yy",},},
     {"id":{"name":"sLeft","path":"sprites/sLeft/sLeft.yy",},},
     {"id":{"name":"sMagicAttack","path":"sprites/sMagicAttack/sMagicAttack.yy",},},
