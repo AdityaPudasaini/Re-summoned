@@ -3,6 +3,9 @@
   "ResourceOrderSettings":[
     {"name":"oCamera","order":1,"path":"objects/oCamera/oCamera.yy",},
     {"name":"FireBossRoom","order":1,"path":"rooms/FireBossRoom/FireBossRoom.yy",},
+    {"name":"AbilityNode","order":1,"path":"scripts/AbilityNode/AbilityNode.yy",},
+    {"name":"CreateAbilityTree","order":2,"path":"scripts/CreateAbilityTree/CreateAbilityTree.yy",},
+    {"name":"UnlockAbility","order":3,"path":"scripts/UnlockAbility/UnlockAbility.yy",},
     {"name":"sFireBossRomm","order":4,"path":"sprites/sFireBossRomm/sFireBossRomm.yy",},
     {"name":"sHurtDown","order":5,"path":"sprites/sHurtDown/sHurtDown.yy",},
     {"name":"sHurtLeft","order":6,"path":"sprites/sHurtLeft/sHurtLeft.yy",},

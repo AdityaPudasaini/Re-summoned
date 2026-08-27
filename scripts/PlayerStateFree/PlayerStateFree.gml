@@ -5,45 +5,34 @@ function PlayerStateFree()
     // =====================================================
 
 	if(keyActivate)
-	{
-	    // Remember the direction we're facing
-	    dashDirection = facingDirection;
+{
+    if (dashes_left > 0)
+    {
+        dashDirection = facingDirection;
+        moveDistanceRemaining = dashDistance;
 
-	    // Set dash distance
-	    moveDistanceRemaining = dashDistance;
+        switch(dashDirection)
+        {
+            case 0: sprite_index = sDashDown;  break;
+            case 1: sprite_index = sDashUp;    break;
+            case 2: sprite_index = sDashLeft;  break;
+            case 3: sprite_index = sDashRight; break;
+        }
 
-	    // Choose dash animation
-	    switch(dashDirection)
-	    {
-	        case 0:
-	            // DOWN
-	            sprite_index = sDashDown;
-	            break;
+        image_index = 1;
+        localFrame = 0;
 
-	        case 1:
-	            // UP
-	            sprite_index = sDashUp;
-	            break;
+        dashes_left--;
 
-	        case 2:
-	            // LEFT
-	            sprite_index = sDashLeft;
-	            break;
+		if (dashes_left < max_dashes)
+		{
+		    dash_cooldown = dash_cooldown_time;
+		}
 
-	        case 3:
-	            // RIGHT
-	            sprite_index = sDashRight;
-	            break;
-	    }
-
-		// Start directly with the forward dash frame.
-		// Frame 0 is the anticipation/backwards frame.
-		image_index = 1;
-		localFrame = 0;
-
-	    state = PlayerStateDash;
-	    return;
-	}
+		state = PlayerStateDash;
+    }
+    return;
+}
 
 
     // =====================================================
@@ -88,34 +77,41 @@ function PlayerStateFree()
     }
 
 
-    // =====================================================
-    // MAGIC ATTACK (LEFT / RIGHT ONLY)
-    // =====================================================
+	// =====================================================
+	// MAGIC ATTACK (LEFT / RIGHT ONLY)
+	// =====================================================
 
-    if(keyMagic)
-    {
-        if(facingDirection == 2 || facingDirection == 3)
-        {
-            magicDirection = facingDirection;
-            magicTimer = 0;
-            magicFired = false;
+	if(keyMagic)
+	{
+	    // Must have at least one full magic charge
+	    if(magic >= magicCost)
+	    {
+	        if(facingDirection == 2 || facingDirection == 3)
+	        {
+	            // Consume magic
+	            magic -= magicCost;
 
-            if(magicDirection == 2)
-            {
-                sprite_index = sMagicLeft;
-            }
-            else
-            {
-                sprite_index = sMagicRight;
-            }
+	            magicDirection = facingDirection;
+	            magicTimer = 0;
+	            magicFired = false;
 
-            image_index = 0;
-            localFrame = 0;
+	            if(magicDirection == 2)
+	            {
+	                sprite_index = sMagicLeft;
+	            }
+	            else
+	            {
+	                sprite_index = sMagicRight;
+	            }
 
-            state = PlayerStateMagic;
-            return;
-        }
-    }
+	            image_index = 0;
+	            localFrame = 0;
+
+	            state = PlayerStateMagic;
+	            return;
+	        }
+	    }
+	}
 
 
     // =====================================================

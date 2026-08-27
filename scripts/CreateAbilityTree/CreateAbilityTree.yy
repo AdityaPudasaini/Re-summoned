@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"CreateAbilityTree",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"CreateAbilityTree",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

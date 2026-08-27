@@ -1,5 +1,9 @@
 function PlayerStateDash()
 {
+    // =====================================================
+    // DASH MOVEMENT
+    // =====================================================
+
     var _step = min(dashSpeed, moveDistanceRemaining);
 
     var _dashX = 0;
@@ -10,7 +14,7 @@ function PlayerStateDash()
     // DASH DIRECTION
     // =====================================================
 
-    switch(dashDirection)
+    switch (dashDirection)
     {
         case 0:
             // DOWN
@@ -50,13 +54,17 @@ function PlayerStateDash()
     // DASH ANIMATION
     // =====================================================
 
-    var _dashProgress = 1 - (moveDistanceRemaining / dashDistance);
+    var _dashProgress =
+        1 - (moveDistanceRemaining / dashDistance);
 
-    // Use frames 1 → 4
-    // Frame 0 is the anticipation frame
-    var _dashFrame = 1 + floor(_dashProgress * 4);
+    var _dashFrame =
+        1 + floor(_dashProgress * 4);
 
-    _dashFrame = clamp(_dashFrame, 1, 4);
+    _dashFrame = clamp(
+        _dashFrame,
+        1,
+        4
+    );
 
     image_index = _dashFrame;
 
@@ -65,7 +73,7 @@ function PlayerStateDash()
     // DASH FINISHED
     // =====================================================
 
-    if(moveDistanceRemaining <= 0)
+    if (moveDistanceRemaining <= 0)
     {
         hSpeed = 0;
         vSpeed = 0;
@@ -73,8 +81,11 @@ function PlayerStateDash()
         facingDirection = dashDirection;
 
 
-        // Return to correct idle sprite
-        switch(facingDirection)
+        // =================================================
+        // RETURN TO IDLE
+        // =================================================
+
+        switch (facingDirection)
         {
             case 0:
                 sprite_index = sIdle;
