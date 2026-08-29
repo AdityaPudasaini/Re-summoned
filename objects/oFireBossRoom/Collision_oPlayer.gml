@@ -37,3 +37,5 @@ if (enter_ready)
         }
     }
 }
+
+room_goto(FireBossRoom);

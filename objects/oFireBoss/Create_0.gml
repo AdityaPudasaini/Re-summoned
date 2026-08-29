@@ -5,7 +5,7 @@ boss_defeated = false;
 // BOSS HEALTH
 // =====================================================
 
-boss_max_hp = 100;
+boss_max_hp = 500;
 boss_hp = boss_max_hp;
 
 show_debug_message(
@@ -171,3 +171,29 @@ tauntTimer = irandom_range(300, 600);
 tauntPlayed1 = false;
 tauntPlayed2 = false;
 tauntPlayed3 = false;
+
+// =====================================================
+// FIREBALL ATTACK
+// =====================================================
+
+fireballCooldown = 120;
+fireballCooldownMax = 120;
+
+// =====================================================
+// DASH ATTACK
+// =====================================================
+
+dashCooldown = 180;
+dashCooldownMax = 180;
+
+dashRadius = 150;
+
+dashSpeed = 10;
+dashTimer = 0;
+dashDuration = 30;
+
+dashDirection = 0;
+
+dashDamage = 40;
+
+isDashing = false;

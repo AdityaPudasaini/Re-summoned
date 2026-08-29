@@ -9,6 +9,7 @@
     {"name":"odialogue","order":6,"path":"objects/odialogue/odialogue.yy",},
     {"name":"oFireBoss","order":4,"path":"objects/oFireBoss/oFireBoss.yy",},
     {"name":"oFireBossController","order":3,"path":"objects/oFireBossController/oFireBossController.yy",},
+    {"name":"oFireBossFireball","order":13,"path":"objects/oFireBossFireball/oFireBossFireball.yy",},
     {"name":"oFireBossPrompt","order":11,"path":"objects/oFireBossPrompt/oFireBossPrompt.yy",},
     {"name":"oFireBossRoom","order":7,"path":"objects/oFireBossRoom/oFireBossRoom.yy",},
     {"name":"oIntroDialogue","order":5,"path":"objects/oIntroDialogue/oIntroDialogue.yy",},

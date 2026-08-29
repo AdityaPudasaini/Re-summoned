@@ -37,6 +37,7 @@
     {"id":{"name":"oFireball","path":"objects/oFireball/oFireball.yy",},},
     {"id":{"name":"oFireBoss","path":"objects/oFireBoss/oFireBoss.yy",},},
     {"id":{"name":"oFireBossController","path":"objects/oFireBossController/oFireBossController.yy",},},
+    {"id":{"name":"oFireBossFireball","path":"objects/oFireBossFireball/oFireBossFireball.yy",},},
     {"id":{"name":"oFireBossPrompt","path":"objects/oFireBossPrompt/oFireBossPrompt.yy",},},
     {"id":{"name":"oFireBossRoom","path":"objects/oFireBossRoom/oFireBossRoom.yy",},},
     {"id":{"name":"oIntroDialogue","path":"objects/oIntroDialogue/oIntroDialogue.yy",},},

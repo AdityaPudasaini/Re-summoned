@@ -29,6 +29,150 @@ if (!instance_exists(_player))
     exit;
 }
 
+// =====================================================
+// DASH ATTACK
+// =====================================================
+
+if (!isDashing)
+{
+    dashCooldown--;
+
+    var _distanceToPlayer = point_distance(
+        x,
+        y,
+        _player.x,
+        _player.y
+    );
+
+    // Player is close enough to dash
+    if (_distanceToPlayer <= dashRadius && dashCooldown <= 0)
+    {
+        // ONLY LEFT OR RIGHT
+        if (_player.x < x)
+        {
+            dashDirection = -1;
+            sprite_index = sDashAttackLeft;
+        }
+        else
+        {
+            dashDirection = 1;
+            sprite_index = sDashAttackRight;
+        }
+
+        image_index = 0;
+        image_speed = 10;
+
+        isDashing = true;
+        dashTimer = 30;
+
+        dashCooldown = dashCooldownMax;
+    }
+}
+
+
+// =====================================================
+// DASH MOVEMENT
+// =====================================================
+
+if (isDashing)
+{
+    // Move ONLY horizontally
+    x += dashDirection * dashSpeed;
+
+    dashTimer--;
+
+    // Check player collision
+    if (place_meeting(x, y, oPlayer))
+    {
+        var _hitPlayer = instance_place(x, y, oPlayer);
+
+        if (_hitPlayer != noone)
+        {
+            if (!_hitPlayer.invincible && !_hitPlayer.isHurt)
+            {
+                with (_hitPlayer)
+                {
+                    health -= other.dashDamage;
+
+                    isHurt = true;
+
+                    image_index = 0;
+                    image_speed = 1;
+                }
+            }
+        }
+    }
+
+    // End dash
+	if (dashTimer <= 0)
+	{
+	    isDashing = false;
+
+	    image_index = 0;
+	    image_speed = 1;
+
+	    switch (facingDirection)
+	    {
+	        case 0:
+	            sprite_index = sFireBossDown;
+	            break;
+
+	        case 1:
+	            sprite_index = sFireBossUp;
+	            break;
+
+	        case 2:
+	            sprite_index = sFireBossLeft;
+	            break;
+
+	        case 3:
+	            sprite_index = sFireBossRight;
+	            break;
+	    }
+	}
+}
+
+// =====================================================
+// FIREBALL ATTACK
+// =====================================================
+
+fireballCooldown--;
+
+if (fireballCooldown <= 0)
+{
+    // Don't shoot while teleporting
+    if (teleportState == 0)
+    {
+        var _directionToPlayer =
+            point_direction(
+                x,
+                y,
+                _player.x,
+                _player.y
+            );
+
+        var _fireball =
+            instance_create_layer(
+                x,
+                y,
+                "Instances",
+                oFireBossFireball
+            );
+
+        _fireball.direction = _directionToPlayer;
+
+		if (_directionToPlayer > 90 && _directionToPlayer < 270)
+		{
+		    _fireball.sprite_index = sFireballLeftFireBoss;
+		}
+		else
+		{
+		    _fireball.sprite_index = sFireballRightFireBoss;
+		}
+
+        fireballCooldown = fireballCooldownMax;
+    }
+}
 
 // =====================================================
 // SWORD DAMAGE
@@ -453,11 +597,10 @@ switch (teleportState)
 // FACE PLAYER
 // =====================================================
 
-if (teleportState == 0)
+if (teleportState == 0 && !isDashing)
 {
     var _dx = _player.x - x;
     var _dy = _player.y - y;
-
 
     if (abs(_dx) > abs(_dy))
     {
@@ -482,27 +625,19 @@ if (teleportState == 0)
         }
     }
 
-
-    // =================================================
-    // BOSS SPRITE
-    // =================================================
-
     switch (facingDirection)
     {
         case 0:
             sprite_index = sFireBossDown;
             break;
 
-
         case 1:
             sprite_index = sFireBossUp;
             break;
 
-
         case 2:
             sprite_index = sFireBossLeft;
             break;
-
 
         case 3:
             sprite_index = sFireBossRight;
