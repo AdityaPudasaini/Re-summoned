@@ -1,4 +1,16 @@
 // =====================================================
+// BOSS INTRO LOCK
+// =====================================================
+
+if (boss_intro_active)
+{
+    hSpeed = 0;
+    vSpeed = 0;
+
+    exit;
+}
+
+// =====================================================
 // ABILITY TREE TOGGLE
 // =====================================================
 
@@ -268,17 +280,6 @@ if (health <= 0)
     room_goto(SpawnPoint);
 }
 
-
-// =====================================================
-// TEST DAMAGE
-// Press H to take 10 damage
-// =====================================================
-
-if (keyboard_check_pressed(ord("H")))
-{
-    health -= 10;
-}
-
 health = clamp(
     health,
     0,
@@ -400,16 +401,17 @@ if (invincible)
     }
 }
 
-
 // =====================================================
-// TEST HURT
-// Press H
+// TEST DAMAGE / HURT
+// Press H to take 10 damage
 // =====================================================
 
 if (keyboard_check_pressed(ord("H")))
 {
     if (!invincible && !isHurt)
     {
+        health -= 10;
+
         isHurt = true;
 
         image_index = 0;

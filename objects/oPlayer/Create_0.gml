@@ -8,6 +8,12 @@ if (layer_exists("Col"))
     collisionMap = layer_tilemap_get_id(layer_get_id("Col"));
 }
 
+// =====================================================
+// BOSS INTRO LOCK
+// =====================================================
+
+boss_intro_active = false;
+
 
 // =====================================================
 // ABILITY TREE

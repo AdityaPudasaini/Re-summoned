@@ -35,46 +35,42 @@ function PlayerStateFree()
 }
 
 
-    // =====================================================
-    // ATTACK
-    // =====================================================
+	// =====================================================
+	// ATTACK - LEFT / RIGHT ONLY
+	// =====================================================
 
-    if(keyAttack)
-    {
-        // Remember the direction the player is facing
-        attackDirection = facingDirection;
+	if(keyAttack)
+	{
+	    // Only allow attacking horizontally
+	    if(facingDirection == 2 || facingDirection == 3)
+	    {
+			attacking = true;
+			
+	        attackDirection = facingDirection;
 
-        // Choose the correct melee attack animation
-        switch(attackDirection)
-        {
-            case 0:
-                // DOWN
-                sprite_index = sSowrdAttackDown;
-                break;
+	        // Choose the correct melee attack animation
+	        if(attackDirection == 2)
+	        {
+	            // LEFT
+	            sprite_index = sSwordAttackLeft;
+	        }
+	        else
+	        {
+	            // RIGHT
+	            sprite_index = sSwordAttackRight;
+	        }
 
-            case 1:
-                // UP
-                sprite_index = sSwordAttackUp;
-                break;
+	        image_index = 0;
+	        localFrame = 0;
+	        attack_timer = 0;
 
-            case 2:
-                // LEFT
-                sprite_index = sSwordAttackLeft;
-                break;
+	        state = PlayerStateAttack;
+	        return;
+	    }
 
-            case 3:
-                // RIGHT
-                sprite_index = sSwordAttackRight;
-                break;
-        }
-
-        image_index = 0;
-        localFrame = 0;
-        attack_timer = 0;
-
-        state = PlayerStateAttack;
-        return;
-    }
+	    // If facing UP or DOWN, do not attack
+	    return;
+	}
 
 
 	// =====================================================

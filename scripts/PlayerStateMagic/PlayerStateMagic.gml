@@ -16,30 +16,34 @@ function PlayerStateMagic()
 
     image_index = floor(localFrame);
 
-    // Fire exactly once when the casting animation reaches frame 2
-    if(!magicFired && image_index >= 2)
-    {
-        magicFired = true;
+    // Fire once when the casting animation reaches frame 4
+	if(!magicFired && image_index >= 4)
+	{
+	    magicFired = true;
 
-        var _fireball = instance_create_layer(x, y, layer, oFireball);
+	    // Spawn at the player's position first
+	    var _fireball = instance_create_layer(x, y, layer, oFireball);
 
-        if(magicDirection == 2)
-        {
-            // LEFT
-            _fireball.sprite_index = sFireballLeft;
-            _fireball.direction = 180;
-        }
-        else if(magicDirection == 3)
-        {
-            // RIGHT
-            _fireball.sprite_index = sFireballRight;
-            _fireball.direction = 0;
-        }
+	    if(magicDirection == 2)
+	    {
+	        // LEFT
+	        _fireball.sprite_index = sFireballLeft;
+	        _fireball.direction = 180;
+	    }
+	    else if(magicDirection == 3)
+	    {
+	        // RIGHT
+	        _fireball.sprite_index = sFireballRight;
+	        _fireball.direction = 0;
+	    }
 
-        // Spawn the projectile slightly in front of the player
-        _fireball.x += lengthdir_x(45, _fireball.direction);
-        _fireball.y += lengthdir_y(45, _fireball.direction);
-    }
+	    // Move the fireball up to the player's hand
+	    _fireball.y -= 35;
+
+	    // Spawn the projectile slightly in front of the player
+	    _fireball.x += lengthdir_x(45, _fireball.direction);
+	    _fireball.y += lengthdir_y(45, _fireball.direction);
+	}
 
     // Finish the cast and return to the direction we were facing
     if(localFrame >= _frameCount - 1)
