@@ -7,6 +7,11 @@ if (dead)
     exit;
 }
 
+
+// =====================================================
+// DEBUG INFO
+// =====================================================
+
 draw_set_color(c_white);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
@@ -20,14 +25,15 @@ draw_text(
 draw_text(
     20,
     270,
-    "IFRIT HEALTH: " + string(health)
+    "IFRIT HEALTH: " + string(boss_hp)
 );
 
 draw_text(
     20,
     290,
-    "IFRIT MAX: " + string(maxHealth)
+    "IFRIT MAX: " + string(boss_max_hp)
 );
+
 
 // =====================================================
 // SETTINGS
@@ -36,7 +42,9 @@ draw_text(
 var _bar_width  = 500;
 var _bar_height = 24;
 
-var _bar_x = (display_get_gui_width() - _bar_width) / 2;
+var _bar_x =
+    (display_get_gui_width() - _bar_width) / 2;
+
 var _bar_y = 45;
 
 var _name_y = _bar_y - 22;
@@ -46,9 +54,15 @@ var _name_y = _bar_y - 22;
 // HEALTH PERCENTAGE
 // =====================================================
 
-var _current_health = clamp(health, 0, maxHealth);
-var _health_percent = _current_health / maxHealth;
+var _current_health =
+    clamp(
+        boss_hp,
+        0,
+        boss_max_hp
+    );
 
+var _health_percent =
+    _current_health / boss_max_hp;
 
 
 // =====================================================
@@ -58,11 +72,16 @@ var _health_percent = _current_health / maxHealth;
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 
-
-// IFRIT
 draw_set_color(c_white);
 
-draw_text_transformed(display_get_gui_width() / 2, _name_y, "IFRIT: The Flame of Destruction", 1.5, 1.5, 0);
+draw_text_transformed(
+    display_get_gui_width() / 2,
+    _name_y,
+    "IFRIT: The Flame of Destruction",
+    1.5,
+    1.5,
+    0
+);
 
 
 // =====================================================

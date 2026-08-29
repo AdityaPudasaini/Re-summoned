@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.1784353,
+  "duration":6.5452833,
   "exportDir":"",
   "name":"sndFireBossCome",
   "parent":{

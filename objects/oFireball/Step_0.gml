@@ -14,24 +14,33 @@ var _boss = instance_find(oFireBoss, 0);
 
 if (_boss != noone)
 {
-    if (_boss.active)
+    var _distance =
+        point_distance(
+            x,
+            y,
+            _boss.x,
+            _boss.y
+        );
+
+    if (_distance <= _boss.collisionRadius + 16)
     {
-        var _distance = point_distance(x, y, _boss.x, _boss.y);
+        // Get the damage from Ifrit
+        var _damage = _boss.fireballDamage;
 
-        if (_distance <= _boss.collisionRadius)
+        // Damage Ifrit ONLY
+        with (_boss)
         {
-            // Make sure health exists
-            if (!variable_instance_exists(_boss, "health"))
+            boss_hp -= _damage;
+
+            if (boss_hp < 0)
             {
-                _boss.health = 500;
+                boss_hp = 0;
             }
-
-            _boss.health -= 30;
-            _boss.health = max(0, _boss.health);
-
-            instance_destroy();
-            exit;
         }
+
+        // Destroy fireball
+        instance_destroy();
+        exit;
     }
 }
 
@@ -54,7 +63,12 @@ if (collisionMap != noone)
 // DESTROY WHEN LEAVING ROOM
 // =====================================================
 
-if (x < 0 || x > room_width || y < 0 || y > room_height)
+if (
+    x < 0 ||
+    x > room_width ||
+    y < 0 ||
+    y > room_height
+)
 {
     instance_destroy();
     exit;

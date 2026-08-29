@@ -8,6 +8,8 @@ function PlayerStateFree()
 {
     if (dashes_left > 0)
     {
+		// DASH SOUND
+        audio_play_sound(sndDash, 0, false);
         dashDirection = facingDirection;
         moveDistanceRemaining = dashDistance;
 
@@ -45,6 +47,8 @@ function PlayerStateFree()
 	    if(facingDirection == 2 || facingDirection == 3)
 	    {
 			attacking = true;
+			// SWORD SLASH SOUND
+			audio_play_sound(sndSlash, 0, false);
 			
 	        attackDirection = facingDirection;
 

@@ -20,6 +20,7 @@ function PlayerStateMagic()
 	if(!magicFired && image_index >= 4)
 	{
 	    magicFired = true;
+		audio_play_sound(sndFireball, 0, false);
 
 	    // Spawn at the player's position first
 	    var _fireball = instance_create_layer(x, y, layer, oFireball);

@@ -1,8 +1,10 @@
-// Menu items
+// =====================================================
+// MAIN MENU
+// =====================================================
+
 menu_items = ["START GAME", "OPTIONS", "EXIT"];
 menu_selected = 0;
 
-// Match the button objects in the background
 button_x1 = 550;
 button_x2 = 848;
 

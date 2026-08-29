@@ -188,7 +188,7 @@
           -6,1,-73,3,-3,1,-8,-2147483648,-4,1,-11,3,1,1,-22,3,-6,1,-73,3,-3,1,-8,-2147483648,-117,3,-3,1,-8,-2147483648,
           -120,3,-8,-2147483648,-120,3,-8,-2147483648,-120,3,-8,-2147483648,-120,3,-8,-2147483648,-120,3,-8,-2147483648,
           -120,3,-8,-2147483648,-120,3,-6,-2147483648,-2,0,-120,3,-8,-2147483648,-120,3,-8,-2147483648,-60,3,
-        ],"TileDataFormat":1,},"tilesetId":{"name":"xCol","path":"tilesets/xCol/xCol.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
+        ],"TileDataFormat":1,},"tilesetId":{"name":"xCol","path":"tilesets/xCol/xCol.yy",},"userdefinedDepth":false,"visible":false,"x":0,"y":0,},
     {"$GMRTileLayer":"","%Name":"Map","depth":500,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Map","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":128,"SerialiseWidth":128,"TileCompressedData":[
           16256,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,
           152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,

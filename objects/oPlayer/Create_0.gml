@@ -1,3 +1,8 @@
+if (!variable_global_exists("dialogue_active"))
+{
+    global.dialogue_active = false;
+}
+
 image_xscale = 0.4;
 image_yscale = 0.4;
 

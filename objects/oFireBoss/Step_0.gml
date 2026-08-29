@@ -46,7 +46,10 @@ if (_playerAttacking && !playerWasAttacking)
     var _hit = false;
 
 
+    // =================================================
     // LEFT
+    // =================================================
+
     if (_attackDirection == 2)
     {
         _hit =
@@ -56,7 +59,10 @@ if (_playerAttacking && !playerWasAttacking)
     }
 
 
+    // =================================================
     // RIGHT
+    // =================================================
+
     if (_attackDirection == 3)
     {
         _hit =
@@ -66,7 +72,10 @@ if (_playerAttacking && !playerWasAttacking)
     }
 
 
+    // =================================================
     // UP
+    // =================================================
+
     if (_attackDirection == 1)
     {
         _hit =
@@ -76,7 +85,10 @@ if (_playerAttacking && !playerWasAttacking)
     }
 
 
+    // =================================================
     // DOWN
+    // =================================================
+
     if (_attackDirection == 0)
     {
         _hit =
@@ -86,28 +98,172 @@ if (_playerAttacking && !playerWasAttacking)
     }
 
 
+    // =================================================
+    // APPLY DAMAGE TO BOSS ONLY
+    // =================================================
+
     if (_hit)
     {
-        health -= swordDamage;
+        boss_hp -= swordDamage;
     }
 }
 
 playerWasAttacking = _playerAttacking;
 
+
 // =====================================================
 // BOSS DEATH
 // =====================================================
 
-if (health <= 0)
+if (boss_hp <= 0)
 {
-    health = 0;
+    boss_hp = 0;
 
     dead = true;
     active = false;
 
-    instance_destroy();
+    boss_defeated = true;
+
+    // Stop future taunts
+    tauntTimer = -1;
+
+
+    // =================================================
+    // IFRIT DEFEAT VOICE
+    // =================================================
+
+    audio_play_sound(
+        sndIfritDefeat,
+        2,
+        false
+    );
+
+
+    // =================================================
+    // HIDE IFRIT
+    // =================================================
+
+    visible = false;
 
     exit;
+}
+
+
+// =====================================================
+// IFRIT RANDOM TAUNTS - NO REPEATS
+// =====================================================
+
+if (tauntTimer > 0)
+{
+    tauntTimer--;
+}
+else
+{
+    var _tauntChoice = -1;
+
+
+    // =================================================
+    // PICK A TAUNT THAT HAS NOT PLAYED YET
+    // =================================================
+
+    var _available = [];
+
+
+    if (!tauntPlayed1)
+    {
+        array_push(_available, 1);
+    }
+
+
+    if (!tauntPlayed2)
+    {
+        array_push(_available, 2);
+    }
+
+
+    if (!tauntPlayed3)
+    {
+        array_push(_available, 3);
+    }
+
+
+    // =================================================
+    // IF ALL 3 HAVE PLAYED, RESET THE CYCLE
+    // =================================================
+
+    if (array_length(_available) == 0)
+    {
+        tauntPlayed1 = false;
+        tauntPlayed2 = false;
+        tauntPlayed3 = false;
+
+        array_push(_available, 1);
+        array_push(_available, 2);
+        array_push(_available, 3);
+    }
+
+
+    // =================================================
+    // PICK ONE FROM AVAILABLE TAUNTS
+    // =================================================
+
+    _tauntChoice =
+        _available[
+            irandom(array_length(_available) - 1)
+        ];
+
+
+    // =================================================
+    // MARK TAUNT AS PLAYED
+    // =================================================
+
+    switch (_tauntChoice)
+    {
+        case 1:
+
+            audio_play_sound(
+                sndIfritTaunt1,
+                2,
+                false
+            );
+
+            tauntPlayed1 = true;
+
+            break;
+
+
+        case 2:
+
+            audio_play_sound(
+                sndIfritTaunt2,
+                2,
+                false
+            );
+
+            tauntPlayed2 = true;
+
+            break;
+
+
+        case 3:
+
+            audio_play_sound(
+                sndIfritTaunt3,
+                2,
+                false
+            );
+
+            tauntPlayed3 = true;
+
+            break;
+    }
+
+
+    // =================================================
+    // WAIT 6-12 SECONDS
+    // =================================================
+
+    tauntTimer = irandom_range(360, 720);
 }
 
 
@@ -139,13 +295,8 @@ switch (teleportState)
 
             for (var _attempt = 0; _attempt < 30; _attempt++)
             {
-                // -1 = player's left side
-                //  1 = player's right side
-
                 var _side = choose(-1, 1);
 
-
-                // Strongly favor left/right positions.
                 var _angle;
 
                 if (_side == -1)
@@ -158,7 +309,10 @@ switch (teleportState)
                 }
 
 
-                // Much farther teleport distance.
+                // =====================================
+                // TELEPORT DISTANCE
+                // =====================================
+
                 var _distance =
                     irandom_range(450, 650);
 
@@ -189,6 +343,7 @@ switch (teleportState)
                     room_width - 64
                 );
 
+
                 _newY = clamp(
                     _newY,
                     64,
@@ -197,7 +352,7 @@ switch (teleportState)
 
 
                 // =====================================
-                // CHECK COL
+                // CHECK COLLISION
                 // =====================================
 
                 if (collisionMap == noone)
@@ -255,14 +410,9 @@ switch (teleportState)
 
         if (image_index >= image_number - 1)
         {
-            // Move to the new location
-            // while the escape animation is finished.
-
             x = teleportX;
             y = teleportY;
 
-
-            // Start appearing.
             teleportState = 2;
 
             sprite_index = sTeleportReturn;
@@ -343,13 +493,16 @@ if (teleportState == 0)
             sprite_index = sFireBossDown;
             break;
 
+
         case 1:
             sprite_index = sFireBossUp;
             break;
 
+
         case 2:
             sprite_index = sFireBossLeft;
             break;
+
 
         case 3:
             sprite_index = sFireBossRight;

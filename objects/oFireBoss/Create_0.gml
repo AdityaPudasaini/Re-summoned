@@ -1,13 +1,20 @@
+boss_defeated = false;
+
+
 // =====================================================
-// HEALTH
+// BOSS HEALTH
 // =====================================================
 
-maxHealth = 500;
-health = 500;
+boss_max_hp = 100;
+boss_hp = boss_max_hp;
 
 show_debug_message(
-    "IFRIT CREATED - HEALTH = " + string(health)
+    "IFRIT CREATED - HP = " + string(boss_hp)
 );
+
+swordDamage = 25;
+fireballDamage = 30;
+playerWasAttacking = false;
 
 swordDamage = 25;
 fireballDamage = 30;
@@ -135,6 +142,7 @@ if (collisionMap != noone)
     }
 }
 
+
 // =====================================================
 // TELEPORT SYSTEM
 // =====================================================
@@ -150,3 +158,16 @@ teleportX = x;
 teleportY = y;
 
 image_speed = 1;
+
+
+// =====================================================
+// IFRIT TAUNT SYSTEM
+// =====================================================
+
+// First taunt after 5-10 seconds
+tauntTimer = irandom_range(300, 600);
+
+// Tracks which taunts have already played
+tauntPlayed1 = false;
+tauntPlayed2 = false;
+tauntPlayed3 = false;

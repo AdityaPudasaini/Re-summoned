@@ -68,7 +68,7 @@ if (mouse_selected || keyboard_selected)
     {
         case 0:
             // START GAME
-            room_goto(SpawnPoint);
+            room_goto(intro);
             break;
 
         case 1:
