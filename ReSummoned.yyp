@@ -134,8 +134,8 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"FireBossRoom","path":"rooms/FireBossRoom/FireBossRoom.yy",},},
     {"roomId":{"name":"Menu","path":"rooms/Menu/Menu.yy",},},
+    {"roomId":{"name":"FireBossRoom","path":"rooms/FireBossRoom/FireBossRoom.yy",},},
     {"roomId":{"name":"MainRoom","path":"rooms/MainRoom/MainRoom.yy",},},
     {"roomId":{"name":"SpawnPoint","path":"rooms/SpawnPoint/SpawnPoint.yy",},},
     {"roomId":{"name":"intro","path":"rooms/intro/intro.yy",},},
