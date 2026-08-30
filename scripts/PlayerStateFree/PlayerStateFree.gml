@@ -67,6 +67,9 @@ function PlayerStateFree()
 	        image_index = 0;
 	        localFrame = 0;
 	        attack_timer = 0;
+			
+			// Allow this new sword swing to hit the boss
+			attackHit = false;
 
 	        state = PlayerStateAttack;
 	        return;

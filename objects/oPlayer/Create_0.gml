@@ -133,6 +133,9 @@ attacking = false;
 attack_duration = 26;
 attack_timer = 0;
 
+// Prevent one sword swing from hitting multiple times
+attackHit = false;
+
 
 // =====================================================
 // HURT / INVINCIBILITY

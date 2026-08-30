@@ -44,6 +44,47 @@ if (_boss != noone)
     }
 }
 
+// =====================================================
+// HIT DEMON LORD
+// =====================================================
+
+var _demon = instance_find(oDemonLord, 0);
+
+if (_demon != noone && !_demon.dead)
+{
+    var _distance =
+        point_distance(
+            x,
+            y,
+            _demon.x,
+            _demon.y
+        );
+
+    if (_distance <= _demon.collisionRadius + 16)
+    {
+        var _damage = _demon.fireballDamage;
+
+        with (_demon)
+        {
+            boss_hp -= _damage;
+
+            if (boss_hp < 0)
+            {
+                boss_hp = 0;
+            }
+
+            if (boss_hp <= 0)
+            {
+                dead = true;
+                active = false;
+            }
+        }
+
+        instance_destroy();
+        exit;
+    }
+}
+
 
 // =====================================================
 // COLLISION WITH COL TILEMAP

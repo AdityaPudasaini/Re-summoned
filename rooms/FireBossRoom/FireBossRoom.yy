@@ -10,7 +10,7 @@
     {"name":"inst_29D9F858","path":"rooms/FireBossRoom/FireBossRoom.yy",},
     {"name":"inst_1874C2C8","path":"rooms/FireBossRoom/FireBossRoom.yy",},
     {"name":"inst_2950B8FF","path":"rooms/FireBossRoom/FireBossRoom.yy",},
-    {"name":"inst_48703E56","path":"rooms/FireBossRoom/FireBossRoom.yy",},
+    {"name":"inst_231CE279","path":"rooms/FireBossRoom/FireBossRoom.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -46,7 +46,7 @@
         {"$GMRInstance":"v4","%Name":"inst_2950B8FF","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_2950B8FF","objectId":{"name":"oFireBoss","path":"objects/oFireBoss/oFireBoss.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":992.0,"y":1376.0,},
       ],"layers":[],"name":"FireBoss","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"exit","depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
-        {"$GMRInstance":"v4","%Name":"inst_48703E56","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_48703E56","objectId":{"name":"exitSecond","path":"objects/exitSecond/exitSecond.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"x":1024.0,"y":2016.0,},
+        {"$GMRInstance":"v4","%Name":"inst_231CE279","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_231CE279","objectId":{"name":"oSecondRoom","path":"objects/oSecondRoom/oSecondRoom.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.034435034,"scaleX":5.0,"scaleY":3.0,"x":1023.99054,"y":1981.5244,},
       ],"layers":[],"name":"exit","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"Instances","depth":300,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_393E5191","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_393E5191","objectId":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":1056.0,"y":384.0,},
