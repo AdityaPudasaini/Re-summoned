@@ -29,6 +29,7 @@ if (!instance_exists(_player))
     exit;
 }
 
+
 // =====================================================
 // DASH ATTACK
 // =====================================================
@@ -81,7 +82,11 @@ if (isDashing)
 
     dashTimer--;
 
-    // Check player collision
+
+    // =================================================
+    // CHECK PLAYER COLLISION
+    // =================================================
+
     if (place_meeting(x, y, oPlayer))
     {
         var _hitPlayer = instance_place(x, y, oPlayer);
@@ -103,34 +108,39 @@ if (isDashing)
         }
     }
 
-    // End dash
-	if (dashTimer <= 0)
-	{
-	    isDashing = false;
 
-	    image_index = 0;
-	    image_speed = 1;
+    // =================================================
+    // END DASH
+    // =================================================
 
-	    switch (facingDirection)
-	    {
-	        case 0:
-	            sprite_index = sFireBossDown;
-	            break;
+    if (dashTimer <= 0)
+    {
+        isDashing = false;
 
-	        case 1:
-	            sprite_index = sFireBossUp;
-	            break;
+        image_index = 0;
+        image_speed = 1;
 
-	        case 2:
-	            sprite_index = sFireBossLeft;
-	            break;
+        switch (facingDirection)
+        {
+            case 0:
+                sprite_index = sFireBossDown;
+                break;
 
-	        case 3:
-	            sprite_index = sFireBossRight;
-	            break;
-	    }
-	}
+            case 1:
+                sprite_index = sFireBossUp;
+                break;
+
+            case 2:
+                sprite_index = sFireBossLeft;
+                break;
+
+            case 3:
+                sprite_index = sFireBossRight;
+                break;
+        }
+    }
 }
+
 
 // =====================================================
 // FIREBALL ATTACK
@@ -161,18 +171,25 @@ if (fireballCooldown <= 0)
 
         _fireball.direction = _directionToPlayer;
 
-		if (_directionToPlayer > 90 && _directionToPlayer < 270)
-		{
-		    _fireball.sprite_index = sFireballLeftFireBoss;
-		}
-		else
-		{
-		    _fireball.sprite_index = sFireballRightFireBoss;
-		}
+
+        if (
+            _directionToPlayer > 90 &&
+            _directionToPlayer < 270
+        )
+        {
+            _fireball.sprite_index =
+                sFireballLeftFireBoss;
+        }
+        else
+        {
+            _fireball.sprite_index =
+                sFireballRightFireBoss;
+        }
 
         fireballCooldown = fireballCooldownMax;
     }
 }
+
 
 // =====================================================
 // SWORD DAMAGE
@@ -268,8 +285,25 @@ if (boss_hp <= 0)
 
     boss_defeated = true;
 
-    // Stop future taunts
+
+    // =================================================
+    // STOP ALL FUTURE TAUNTS
+    // =================================================
+
     tauntTimer = -1;
+
+    tauntPlayed1 = true;
+    tauntPlayed2 = true;
+    tauntPlayed3 = true;
+
+
+    // =================================================
+    // STOP CURRENT IFRIT TAUNT
+    // =================================================
+
+    audio_stop_sound(sndIfritTaunt1);
+    audio_stop_sound(sndIfritTaunt2);
+    audio_stop_sound(sndIfritTaunt3);
 
 
     // =================================================
@@ -294,123 +328,111 @@ if (boss_hp <= 0)
 
 
 // =====================================================
-// IFRIT RANDOM TAUNTS - NO REPEATS
+// IFRIT RANDOM TAUNTS - PLAY EACH ONLY ONCE
 // =====================================================
 
-if (tauntTimer > 0)
+if (!dead && active)
 {
-    tauntTimer--;
+    if (tauntTimer > 0)
+    {
+        tauntTimer--;
+    }
+    else
+    {
+        var _available = [];
+
+
+        // =================================================
+        // FIND TAUNTS THAT HAVE NOT PLAYED
+        // =================================================
+
+        if (!tauntPlayed1)
+        {
+            array_push(_available, 1);
+        }
+
+        if (!tauntPlayed2)
+        {
+            array_push(_available, 2);
+        }
+
+        if (!tauntPlayed3)
+        {
+            array_push(_available, 3);
+        }
+
+
+        // =================================================
+        // PLAY A RANDOM UNUSED TAUNT
+        // =================================================
+
+        if (array_length(_available) > 0)
+        {
+            var _tauntChoice =
+                _available[
+                    irandom(array_length(_available) - 1)
+                ];
+
+
+            switch (_tauntChoice)
+            {
+                case 1:
+
+                    audio_play_sound(
+                        sndIfritTaunt1,
+                        2,
+                        false
+                    );
+
+                    tauntPlayed1 = true;
+
+                    break;
+
+
+                case 2:
+
+                    audio_play_sound(
+                        sndIfritTaunt2,
+                        2,
+                        false
+                    );
+
+                    tauntPlayed2 = true;
+
+                    break;
+
+
+                case 3:
+
+                    audio_play_sound(
+                        sndIfritTaunt3,
+                        2,
+                        false
+                    );
+
+                    tauntPlayed3 = true;
+
+                    break;
+            }
+
+
+            // =================================================
+            // WAIT BEFORE NEXT TAUNT
+            // =================================================
+
+            tauntTimer = irandom_range(360, 720);
+        }
+        else
+        {
+            // =================================================
+            // ALL 3 TAUNTS HAVE PLAYED
+            // NO MORE TAUNTS THIS FIGHT
+            // =================================================
+
+            tauntTimer = -1;
+        }
+    }
 }
-else
-{
-    var _tauntChoice = -1;
-
-
-    // =================================================
-    // PICK A TAUNT THAT HAS NOT PLAYED YET
-    // =================================================
-
-    var _available = [];
-
-
-    if (!tauntPlayed1)
-    {
-        array_push(_available, 1);
-    }
-
-
-    if (!tauntPlayed2)
-    {
-        array_push(_available, 2);
-    }
-
-
-    if (!tauntPlayed3)
-    {
-        array_push(_available, 3);
-    }
-
-
-    // =================================================
-    // IF ALL 3 HAVE PLAYED, RESET THE CYCLE
-    // =================================================
-
-    if (array_length(_available) == 0)
-    {
-        tauntPlayed1 = false;
-        tauntPlayed2 = false;
-        tauntPlayed3 = false;
-
-        array_push(_available, 1);
-        array_push(_available, 2);
-        array_push(_available, 3);
-    }
-
-
-    // =================================================
-    // PICK ONE FROM AVAILABLE TAUNTS
-    // =================================================
-
-    _tauntChoice =
-        _available[
-            irandom(array_length(_available) - 1)
-        ];
-
-
-    // =================================================
-    // MARK TAUNT AS PLAYED
-    // =================================================
-
-    switch (_tauntChoice)
-    {
-        case 1:
-
-            audio_play_sound(
-                sndIfritTaunt1,
-                2,
-                false
-            );
-
-            tauntPlayed1 = true;
-
-            break;
-
-
-        case 2:
-
-            audio_play_sound(
-                sndIfritTaunt2,
-                2,
-                false
-            );
-
-            tauntPlayed2 = true;
-
-            break;
-
-
-        case 3:
-
-            audio_play_sound(
-                sndIfritTaunt3,
-                2,
-                false
-            );
-
-            tauntPlayed3 = true;
-
-            break;
-    }
-
-
-    // =================================================
-    // WAIT 6-12 SECONDS
-    // =================================================
-
-    tauntTimer = irandom_range(360, 720);
-}
-
-
 // =====================================================
 // TELEPORT SYSTEM
 // =====================================================
@@ -442,6 +464,7 @@ switch (teleportState)
                 var _side = choose(-1, 1);
 
                 var _angle;
+
 
                 if (_side == -1)
                 {
@@ -486,7 +509,6 @@ switch (teleportState)
                     64,
                     room_width - 64
                 );
-
 
                 _newY = clamp(
                     _newY,
@@ -602,6 +624,7 @@ if (teleportState == 0 && !isDashing)
     var _dx = _player.x - x;
     var _dy = _player.y - y;
 
+
     if (abs(_dx) > abs(_dy))
     {
         if (_dx < 0)
@@ -625,19 +648,27 @@ if (teleportState == 0 && !isDashing)
         }
     }
 
+
+    // =================================================
+    // BOSS SPRITE
+    // =================================================
+
     switch (facingDirection)
     {
         case 0:
             sprite_index = sFireBossDown;
             break;
 
+
         case 1:
             sprite_index = sFireBossUp;
             break;
 
+
         case 2:
             sprite_index = sFireBossLeft;
             break;
+
 
         case 3:
             sprite_index = sFireBossRight;

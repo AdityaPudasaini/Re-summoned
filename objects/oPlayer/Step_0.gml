@@ -9,6 +9,8 @@ if (boss_intro_active)
 
     exit;
 }
+
+
 // =====================================================
 // DIALOGUE LOCK
 // =====================================================
@@ -21,6 +23,7 @@ if (global.dialogue_active)
     exit;
 }
 
+
 // =====================================================
 // ABILITY TREE TOGGLE
 // =====================================================
@@ -31,6 +34,13 @@ if (keyboard_check_pressed(vk_tab))
 
     if (ability_menu_open)
     {
+        // Ability tree OPEN sound
+        audio_play_sound(
+            sndAbilityOpen,
+            1,
+            false
+        );
+
         ability_selected = 0;
         ability_tier = 0;
 
@@ -51,17 +61,24 @@ if (ability_menu_open)
     vSpeed = 0;
 
 
-    // Message timer
+    // =================================================
+    // MESSAGE TIMER
+    // =================================================
+
     if (ability_message_timer > 0)
     {
         ability_message_timer--;
     }
 
 
-    // Number of branches
-    var _branch_count = array_length(
-        global.ability_tree.children
-    );
+    // =================================================
+    // NUMBER OF BRANCHES
+    // =================================================
+
+    var _branch_count =
+        array_length(
+            global.ability_tree.children
+        );
 
 
     // =================================================
@@ -77,10 +94,19 @@ if (ability_menu_open)
 
         if (ability_selected < 0)
         {
-            ability_selected = _branch_count - 1;
+            ability_selected =
+                _branch_count - 1;
         }
 
         ability_tier = 0;
+
+
+        // Navigation sound
+        audio_play_sound(
+            sndAbilityMove,
+            1,
+            false
+        );
     }
 
 
@@ -101,6 +127,14 @@ if (ability_menu_open)
         }
 
         ability_tier = 0;
+
+
+        // Navigation sound
+        audio_play_sound(
+            sndAbilityMove,
+            1,
+            false
+        );
     }
 
 
@@ -114,6 +148,14 @@ if (ability_menu_open)
     )
     {
         ability_tier = 0;
+
+
+        // Navigation sound
+        audio_play_sound(
+            sndAbilityMove,
+            1,
+            false
+        );
     }
 
 
@@ -127,11 +169,21 @@ if (ability_menu_open)
     )
     {
         var _branch =
-            global.ability_tree.children[ability_selected];
+            global.ability_tree.children[
+                ability_selected
+            ];
 
         if (array_length(_branch.children) > 0)
         {
             ability_tier = 1;
+
+
+            // Navigation sound
+            audio_play_sound(
+                sndAbilityMove,
+                1,
+                false
+            );
         }
     }
 
@@ -141,9 +193,12 @@ if (ability_menu_open)
     // =================================================
 
     var _selected_branch =
-        global.ability_tree.children[ability_selected];
+        global.ability_tree.children[
+            ability_selected
+        ];
 
-    var _selected_ability = _selected_branch;
+    var _selected_ability =
+        _selected_branch;
 
 
     if (
@@ -162,10 +217,29 @@ if (ability_menu_open)
 
     if (keyboard_check_pressed(vk_enter))
     {
+        // =============================================
+        // ALREADY UNLOCKED
+        // =============================================
+
         if (_selected_ability.unlocked)
         {
-            ability_message = "Already unlocked!";
+            ability_message =
+                "Already unlocked!";
+
+
+            // Failure sound
+            audio_play_sound(
+                sndAbilityFail,
+                1,
+                false
+            );
         }
+
+
+        // =============================================
+        // PARENT NOT UNLOCKED
+        // =============================================
+
         else if (
             _selected_ability.parent != undefined &&
             !_selected_ability.parent.unlocked
@@ -175,17 +249,53 @@ if (ability_menu_open)
                 "Unlock " +
                 _selected_ability.parent.name +
                 " first!";
+
+
+            // Failure sound
+            audio_play_sound(
+                sndAbilityFail,
+                1,
+                false
+            );
         }
+
+
+        // =============================================
+        // SUCCESSFUL UNLOCK
+        // =============================================
+
         else if (UnlockAbility(_selected_ability))
         {
             ability_message =
                 _selected_ability.name +
                 " unlocked!";
+
+
+            // Unlock sound
+            audio_play_sound(
+                sndAbilityUnlock,
+                1,
+                false
+            );
         }
+
+
+        // =============================================
+        // NOT ENOUGH EMPOWER POINTS
+        // =============================================
+
         else
         {
             ability_message =
                 "Not enough Empower Points!";
+
+
+            // Failure sound
+            audio_play_sound(
+                sndAbilityFail,
+                1,
+                false
+            );
         }
 
         ability_message_timer = 90;
@@ -194,16 +304,16 @@ if (ability_menu_open)
 
     // =================================================
     // TEST EMPOWER POINT
+    // REMOVE THIS LATER
     // =================================================
-
-    // REMOVE THIS LATER when you have your real
-    // method of earning Empower Points.
 
     if (keyboard_check_pressed(ord("P")))
     {
         global.empower_points++;
 
-        ability_message = "+1 Empower Point";
+        ability_message =
+            "+1 Empower Point";
+
         ability_message_timer = 60;
     }
 
@@ -230,20 +340,28 @@ if (ability_menu_open)
 // READ INPUT
 // =====================================================
 
-var _left = keyboard_check(vk_left)
-    || keyboard_check(ord("A"));
+var _left =
+    keyboard_check(vk_left) ||
+    keyboard_check(ord("A"));
 
-var _right = keyboard_check(vk_right)
-    || keyboard_check(ord("D"));
+var _right =
+    keyboard_check(vk_right) ||
+    keyboard_check(ord("D"));
 
-var _up = keyboard_check(vk_up)
-    || keyboard_check(ord("W"));
+var _up =
+    keyboard_check(vk_up) ||
+    keyboard_check(ord("W"));
 
-var _down = keyboard_check(vk_down)
-    || keyboard_check(ord("S"));
+var _down =
+    keyboard_check(vk_down) ||
+    keyboard_check(ord("S"));
 
-var _xInput = _right - _left;
-var _yInput = _down - _up;
+
+var _xInput =
+    _right - _left;
+
+var _yInput =
+    _down - _up;
 
 
 // =====================================================
@@ -260,10 +378,12 @@ if (dashes_left < max_dashes)
         // Restore ONE dash
         dashes_left++;
 
+
         // Still missing dashes?
         if (dashes_left < max_dashes)
         {
-            dash_cooldown = dash_cooldown_time;
+            dash_cooldown =
+                dash_cooldown_time;
         }
         else
         {
@@ -276,26 +396,32 @@ else
     // Fully charged
     dash_cooldown = 0;
 }
+
+
 // =====================================================
 // HEALTH
 // =====================================================
 
-health = clamp(
-    health,
-    0,
-    maxHealth
-);
+health =
+    clamp(
+        health,
+        0,
+        maxHealth
+    );
+
 
 if (health <= 0)
 {
     room_goto(SpawnPoint);
 }
 
-health = clamp(
-    health,
-    0,
-    maxHealth
-);
+
+health =
+    clamp(
+        health,
+        0,
+        maxHealth
+    );
 
 
 // =====================================================
@@ -355,7 +481,8 @@ if (isHurt)
 
 
         invincible = true;
-        invincibilityTimer = invincibilityTime;
+        invincibilityTimer =
+            invincibilityTime;
 
 
         switch (facingDirection)
@@ -396,6 +523,7 @@ if (invincible)
     if (invincibilityFlashTimer >= 5)
     {
         invincibilityFlashTimer = 0;
+
         visible = !visible;
     }
 
@@ -411,6 +539,7 @@ if (invincible)
         invincibilityFlashTimer = 0;
     }
 }
+
 
 // =====================================================
 // TEST DAMAGE / HURT
@@ -443,12 +572,13 @@ inputMagnitude =
 
 if (inputMagnitude != 0)
 {
-    inputDirection = point_direction(
-        0,
-        0,
-        _xInput,
-        _yInput
-    );
+    inputDirection =
+        point_direction(
+            0,
+            0,
+            _xInput,
+            _yInput
+        );
 }
 
 

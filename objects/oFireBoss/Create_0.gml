@@ -5,7 +5,7 @@ boss_defeated = false;
 // BOSS HEALTH
 // =====================================================
 
-boss_max_hp = 500;
+boss_max_hp = 10;
 boss_hp = boss_max_hp;
 
 show_debug_message(
@@ -164,14 +164,11 @@ image_speed = 1;
 // IFRIT TAUNT SYSTEM
 // =====================================================
 
-// First taunt after 5-10 seconds
-tauntTimer = irandom_range(300, 600);
+tauntTimer = irandom_range(360, 720);
 
-// Tracks which taunts have already played
 tauntPlayed1 = false;
 tauntPlayed2 = false;
 tauntPlayed3 = false;
-
 // =====================================================
 // FIREBALL ATTACK
 // =====================================================

@@ -1,6 +1,6 @@
 {
   "$GMSound":"v2",
-  "%Name":"sndIfritDefeat",
+  "%Name":"sndAbilityMove",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -10,9 +10,9 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":4.6203175,
+  "duration":0.26122448,
   "exportDir":"",
-  "name":"sndIfritDefeat",
+  "name":"sndAbilityMove",
   "parent":{
     "name":"Sounds",
     "path":"folders/Sounds.yy",
@@ -21,6 +21,6 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sndIfritDefeat.mp3",
+  "soundFile":"sndAbilityMove.mp3",
   "volume":1.0,
 }
