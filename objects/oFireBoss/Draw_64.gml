@@ -16,23 +16,6 @@ draw_set_color(c_white);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
-draw_text(
-    20,
-    250,
-    "IFRIT ID: " + string(id)
-);
-
-draw_text(
-    20,
-    270,
-    "IFRIT HEALTH: " + string(boss_hp)
-);
-
-draw_text(
-    20,
-    290,
-    "IFRIT MAX: " + string(boss_max_hp)
-);
 
 
 // =====================================================

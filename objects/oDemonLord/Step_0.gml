@@ -2,8 +2,146 @@
 // DEMON LORD - STEP
 // =====================================================
 
-if (dead)
+
+// =====================================================
+// BOSS FIGHT FLAG
+// =====================================================
+
+if (!variable_global_exists("demon_king_fight_started"))
 {
+    global.demon_king_fight_started = false;
+}
+
+
+// =====================================================
+// WAIT FOR INTRO CUTSCENE
+// =====================================================
+
+if (!global.demon_king_fight_started)
+{
+    exit;
+}
+
+
+// =====================================================
+// DEATH CHECK
+// =====================================================
+
+if (boss_hp <= 0)
+{
+    // ---------------------------------------------
+    // LOCK HP
+    // ---------------------------------------------
+
+    boss_hp = 0;
+
+
+    // ---------------------------------------------
+    // ENTER DEATH STATE ONCE
+    // ---------------------------------------------
+
+    if (!dead)
+    {
+        dead = true;
+        active = false;
+
+        attacking = false;
+
+        hspeed = 0;
+        vspeed = 0;
+
+        image_speed = 0;
+        image_index = 0;
+
+        // Stop future taunts
+        taunt1_played = true;
+        taunt2_played = true;
+    }
+
+
+    // ---------------------------------------------
+    // DEATH VOICE
+    // ---------------------------------------------
+
+    if (!defeat_voice_played)
+    {
+        defeat_voice_played = true;
+
+        defeat_voice_id = audio_play_sound(
+            sndDemonKingDefeat,
+            2,
+            false
+        );
+    }
+
+
+    // =================================================
+    // WAIT FOR DEATH VOICE
+    // =================================================
+
+    if (!death_bang_played)
+    {
+        var _voice_finished = false;
+
+
+        if (defeat_voice_id != -1)
+        {
+            _voice_finished =
+                !audio_is_playing(defeat_voice_id);
+        }
+        else
+        {
+            _voice_finished = true;
+        }
+
+
+        // ---------------------------------------------
+        // DEATH VOICE FINISHED
+        // ---------------------------------------------
+
+        if (_voice_finished)
+        {
+            death_bang_played = true;
+
+
+            // -----------------------------------------
+            // BANG
+            // -----------------------------------------
+
+            audio_play_sound(
+                sndIntroBang,
+                3,
+                false
+            );
+
+
+            // -----------------------------------------
+            // START WHITE FLASH
+            // -----------------------------------------
+
+            death_flash = 1;
+        }
+    }
+
+
+    // =================================================
+    // WHITE FLASH
+    // =================================================
+
+    if (death_bang_played)
+    {
+        death_flash -= death_flash_speed;
+
+
+        if (death_flash <= 0)
+        {
+            death_flash = 0;
+
+            room_goto(rEndingRoom);
+        }
+    }
+
+
     exit;
 }
 
@@ -31,7 +169,7 @@ if (attackCooldown > 0)
 
 
 // =====================================================
-// DISTANCE TO PLAYER
+// DISTANCE
 // =====================================================
 
 var _distance =
@@ -49,33 +187,18 @@ var _distance =
 
 if (attacking)
 {
-    // Stop moving during attack
     hspeed = 0;
     vspeed = 0;
 
-
     attackTimer++;
 
-
-    // -------------------------------------------------
-    // ATTACK ANIMATION
-    // -------------------------------------------------
-
-    image_speed = 1;
     image_speed = 1;
 
 
-	show_debug_message(
-	    "Demon attacking: " + string(attacking) +
-	    " | image: " + string(image_index) +
-	    " | distance: " + string(_distance)
-	);
-		
-    // -------------------------------------------------
+    // =================================================
     // DAMAGE PLAYER
-    // -------------------------------------------------
+    // =================================================
 
-    // Hit once during the middle of the animation
     if (image_index >= 5 && !attackHit)
     {
         var _hit = false;
@@ -140,29 +263,33 @@ if (attacking)
         }
 
 
-		if (_hit)
-		{
-		    if (!_player.invincible && !_player.isHurt)
-		    {
-		        with (_player)
-		        {
-		            health -= other.attackDamage;
+        // =================================================
+        // HIT PLAYER
+        // =================================================
 
-		            isHurt = true;
+        if (_hit)
+        {
+            if (!_player.invincible && !_player.isHurt)
+            {
+                with (_player)
+                {
+                    health -= other.attackDamage;
 
-		            image_index = 0;
-		            image_speed = 1;
-		        }
+                    isHurt = true;
 
-		        attackHit = true;
-		    }
-		}
+                    image_index = 0;
+                    image_speed = 1;
+                }
+
+                attackHit = true;
+            }
+        }
     }
 
 
-    // -------------------------------------------------
+    // =================================================
     // ATTACK FINISHED
-    // -------------------------------------------------
+    // =================================================
 
     if (image_index >= image_number - 1)
     {
@@ -175,6 +302,40 @@ if (attacking)
         attackCooldown = attackCooldownTime;
 
         image_index = 0;
+
+        attack_count++;
+
+
+        // =================================================
+        // TAUNT 1
+        // =================================================
+
+        if (attack_count >= 3 && !taunt1_played)
+        {
+            audio_play_sound(
+                sndDemonKingTaunt1,
+                2,
+                false
+            );
+
+            taunt1_played = true;
+        }
+
+
+        // =================================================
+        // TAUNT 2
+        // =================================================
+
+        if (attack_count >= 7 && !taunt2_played)
+        {
+            audio_play_sound(
+                sndDemonKingTaunt2,
+                2,
+                false
+            );
+
+            taunt2_played = true;
+        }
     }
 
 
@@ -183,7 +344,7 @@ if (attacking)
 
 
 // =====================================================
-// FACE THE PLAYER
+// FACE PLAYER
 // =====================================================
 
 var _dx =
@@ -195,10 +356,6 @@ var _dy =
 
 if (abs(_dx) > abs(_dy))
 {
-    // ---------------------------------------------
-    // HORIZONTAL
-    // ---------------------------------------------
-
     if (_dx > 0)
     {
         facingDirection = 3;
@@ -210,10 +367,6 @@ if (abs(_dx) > abs(_dy))
 }
 else
 {
-    // ---------------------------------------------
-    // VERTICAL
-    // ---------------------------------------------
-
     if (_dy > 0)
     {
         facingDirection = 0;
@@ -240,24 +393,26 @@ if (_distance > stopDistance)
         );
 
 
-		var _moveX =
-		    lengthdir_x(
-		        moveSpeed,
-		        _moveDirection
-		    );
+    var _moveX =
+        lengthdir_x(
+            moveSpeed,
+            _moveDirection
+        );
 
-		var _moveY =
-		    lengthdir_y(
-		        moveSpeed,
-		        _moveDirection
-		    );
 
-		x += _moveX;
-		y += _moveY;
+    var _moveY =
+        lengthdir_y(
+            moveSpeed,
+            _moveDirection
+        );
+
+
+    x += _moveX;
+    y += _moveY;
 
 
     // =================================================
-    // WALKING ANIMATION
+    // WALK ANIMATION
     // =================================================
 
     switch (facingDirection)
@@ -285,7 +440,7 @@ if (_distance > stopDistance)
 
 
 // =====================================================
-// STOP WHEN CLOSE TO PLAYER
+// STOP WHEN CLOSE
 // =====================================================
 
 else
@@ -317,10 +472,6 @@ if (
     image_speed = 1;
 
 
-    // =================================================
-    // SELECT SWORD ATTACK BASED ON PLAYER DIRECTION
-    // =================================================
-
     switch (facingDirection)
     {
         case 0:
@@ -332,7 +483,7 @@ if (
             break;
 
         case 2:
-            sprite_index = sDemonSwordAttackLeft;	
+            sprite_index = sDemonSwordAttackLeft;
             break;
 
         case 3:

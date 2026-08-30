@@ -5,12 +5,9 @@ boss_defeated = false;
 // BOSS HEALTH
 // =====================================================
 
-boss_max_hp = 10;
+boss_max_hp = 500;
 boss_hp = boss_max_hp;
 
-show_debug_message(
-    "IFRIT CREATED - HP = " + string(boss_hp)
-);
 
 swordDamage = 25;
 fireballDamage = 30;
