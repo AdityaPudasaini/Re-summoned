@@ -74,6 +74,42 @@ attack_count = 0;
 
 
 // -----------------------------------------------------
+// MAGIC ATTACK
+// -----------------------------------------------------
+
+magicAttacking = false;
+magicFired = false;
+
+// 180 steps = about 3 seconds at 60 FPS
+magicTimer = 180;
+magicInterval = 180;
+
+
+// -----------------------------------------------------
+// AOE ATTACK
+// -----------------------------------------------------
+
+// The player must stay close for this long before the
+// Demon Lord uses his fast area attack.
+aoeAttacking = false;
+aoeHit = false;
+
+aoeCloseTimer = 0;
+aoeCloseTime = 90;          // 1.5 seconds close
+aoeCloseDistance = 165;   // distance considered "too close"
+aoeHitRadius = 180;
+aoeDamage = 35;
+
+aoeCooldown = 0;
+aoeCooldownTime = 150;      // 2.5 seconds before another AOE can trigger
+
+// Fast animation = only a short escape window once the
+// attack starts.
+aoeImageSpeed = 1.5;
+aoeHitFrame = 6;
+
+
+// -----------------------------------------------------
 // STATE
 // -----------------------------------------------------
 

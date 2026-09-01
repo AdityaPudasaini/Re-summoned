@@ -1,5 +1,5 @@
 // =====================================================
-// MOVE
+// DEMON LORD FIREBALL MOVEMENT
 // =====================================================
 
 x += lengthdir_x(speed, direction);
@@ -29,18 +29,37 @@ if (_player != noone)
             }
 
             instance_destroy();
+            exit;
         }
     }
 }
 
 
 // =====================================================
-// LIFETIME
+// COLLISION WITH COL TILEMAP
 // =====================================================
 
-life--;
+if (collisionMap != noone)
+{
+    if (tilemap_get_at_pixel(collisionMap, x, y) != 0)
+    {
+        instance_destroy();
+        exit;
+    }
+}
 
-if (life <= 0)
+
+// =====================================================
+// DESTROY WHEN LEAVING ROOM
+// =====================================================
+
+if (
+    x < 0 ||
+    x > room_width ||
+    y < 0 ||
+    y > room_height
+)
 {
     instance_destroy();
+    exit;
 }

@@ -167,6 +167,21 @@ if (attackCooldown > 0)
     attackCooldown--;
 }
 
+if (aoeCooldown > 0)
+{
+    aoeCooldown--;
+}
+
+
+// =====================================================
+// MAGIC TIMER - COUNTS DOWN REGARDLESS OF PLAYER DISTANCE
+// =====================================================
+
+if (!magicAttacking && magicTimer > 0)
+{
+    magicTimer--;
+}
+
 
 // =====================================================
 // DISTANCE
@@ -179,6 +194,216 @@ var _distance =
         _player.x,
         _player.y
     );
+
+
+// =====================================================
+// CLOSE RANGE TIMER FOR AOE
+// The player has to stay close continuously.
+// Moving away resets the timer.
+// =====================================================
+
+if (!aoeAttacking && !attacking && !magicAttacking)
+{
+    if (_distance <= aoeCloseDistance)
+    {
+        if (aoeCloseTimer < aoeCloseTime)
+        {
+            aoeCloseTimer++;
+        }
+    }
+    else
+    {
+        aoeCloseTimer = 0;
+    }
+}
+
+
+// =====================================================
+// START AOE ATTACK
+// Only triggers after the player has stayed close too long.
+// This takes priority over sword/magic.
+// =====================================================
+
+if (
+    aoeCloseTimer >= aoeCloseTime &&
+    aoeCooldown <= 0 &&
+    !attacking &&
+    !magicAttacking &&
+    !aoeAttacking
+)
+{
+    aoeAttacking = true;
+    aoeHit = false;
+
+    hspeed = 0;
+    vspeed = 0;
+
+    image_index = 0;
+    image_speed = aoeImageSpeed;
+
+    // The AOE animation is available in left/right.
+    if (_player.x < x)
+    {
+        facingDirection = 2;
+        sprite_index = sDemonAOEAttackLeft;
+    }
+    else
+    {
+        facingDirection = 3;
+        sprite_index = sDemonAOEAttackRight;
+    }
+}
+
+
+// =====================================================
+// AOE ATTACKING
+// Fast wind-up and one hit only.
+// =====================================================
+
+if (aoeAttacking)
+{
+    hspeed = 0;
+    vspeed = 0;
+
+    image_speed = aoeImageSpeed;
+
+    // Hit once at the active frame.
+    if (!aoeHit && image_index >= aoeHitFrame)
+    {
+        aoeHit = true;
+
+        if (point_distance(x, y, _player.x, _player.y) <= aoeHitRadius)
+        {
+            if (!_player.invincible && !_player.isHurt)
+            {
+                with (_player)
+                {
+                    health -= other.aoeDamage;
+
+                    isHurt = true;
+
+                    image_index = 0;
+                    image_speed = 1;
+                }
+            }
+        }
+    }
+
+    // Finish the fast AOE and give the player a fresh escape period.
+    if (image_index >= image_number - 1)
+    {
+        aoeAttacking = false;
+        aoeHit = false;
+
+        aoeCloseTimer = 0;
+        aoeCooldown = aoeCooldownTime;
+
+        image_index = 0;
+
+        switch (facingDirection)
+        {
+            case 0: sprite_index = sDemonWalkDown;  break;
+            case 1: sprite_index = sDemonWalkUp;    break;
+            case 2: sprite_index = sDemonWalkLeft;  break;
+            case 3: sprite_index = sDemonWalkRight; break;
+        }
+    }
+
+    exit;
+}
+
+
+// =====================================================
+// START MAGIC ATTACK
+// Fires on a timer, no distance check
+// =====================================================
+
+if (magicTimer <= 0 && !attacking && !magicAttacking)
+{
+    magicAttacking = true;
+    magicFired = false;
+
+    hspeed = 0;
+    vspeed = 0;
+
+    image_index = 0;
+    image_speed = 1;
+
+    // Demon magic only has LEFT / RIGHT cast sprites,
+    // so aim at whichever horizontal side the player is on.
+    if (_player.x < x)
+    {
+        facingDirection = 2;
+        sprite_index = sDemonMagicAttackLeft;
+    }
+    else
+    {
+        facingDirection = 3;
+        sprite_index = sDemonMagicAttackRight;
+    }
+}
+
+
+// =====================================================
+// MAGIC ATTACKING
+// =====================================================
+
+if (magicAttacking)
+{
+    hspeed = 0;
+    vspeed = 0;
+
+    image_speed = 1;
+
+    // Same idea as the player's magic: fire once around frame 4.
+    if (!magicFired && image_index >= 4)
+    {
+        magicFired = true;
+
+        audio_play_sound(sndFireball, 0, false);
+
+        var _fireball = instance_create_layer(x, y, layer, oDemonFireball);
+
+        if (facingDirection == 2)
+        {
+            _fireball.sprite_index = sDemonMagicBallLeft;
+            _fireball.direction = 180;
+        }
+        else
+        {
+            _fireball.sprite_index = sDemonMagicBallRight;
+            _fireball.direction = 0;
+        }
+
+        _fireball.damage = fireballDamage;
+
+        // Match the player's fireball spawn positioning.
+        _fireball.y -= 35;
+        _fireball.x += lengthdir_x(45, _fireball.direction);
+        _fireball.y += lengthdir_y(45, _fireball.direction);
+    }
+
+    // Finish the cast, then restart the timer.
+    if (image_index >= image_number - 1)
+    {
+        magicAttacking = false;
+        magicFired = false;
+        magicTimer = magicInterval;
+
+        image_index = 0;
+
+        if (facingDirection == 2)
+        {
+            sprite_index = sDemonWalkLeft;
+        }
+        else
+        {
+            sprite_index = sDemonWalkRight;
+        }
+    }
+
+    exit;
+}
 
 
 // =====================================================

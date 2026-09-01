@@ -183,10 +183,10 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"DemonLordBossRoom","path":"rooms/DemonLordBossRoom/DemonLordBossRoom.yy",},},
     {"roomId":{"name":"Menu","path":"rooms/Menu/Menu.yy",},},
     {"roomId":{"name":"FireBossRoom","path":"rooms/FireBossRoom/FireBossRoom.yy",},},
     {"roomId":{"name":"rSecondRoom","path":"rooms/rSecondRoom/rSecondRoom.yy",},},
-    {"roomId":{"name":"DemonLordBossRoom","path":"rooms/DemonLordBossRoom/DemonLordBossRoom.yy",},},
     {"roomId":{"name":"rEndingRoom","path":"rooms/rEndingRoom/rEndingRoom.yy",},},
     {"roomId":{"name":"SpawnPoint","path":"rooms/SpawnPoint/SpawnPoint.yy",},},
     {"roomId":{"name":"MainRoom","path":"rooms/MainRoom/MainRoom.yy",},},
