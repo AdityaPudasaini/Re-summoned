@@ -164,7 +164,7 @@ if (fadingOut)
 
     if (fadeAlpha >= 1)
     {
-        room_goto(SpawnPoint);
+        room_goto(rCutScene);
         exit;
     }
 }
