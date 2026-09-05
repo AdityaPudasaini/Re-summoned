@@ -1,8 +1,8 @@
 {
   "FolderOrderSettings":[
-    {"name":"Videos","order":1,"path":"folders/Videos.yy",},
     {"name":"Demon-lord","order":10,"path":"folders/Sprites/Demon-lord.yy",},
     {"name":"Fire-boss","order":9,"path":"folders/Sprites/Fire-boss.yy",},
+    {"name":"Videos","order":1,"path":"folders/Videos.yy",},
   ],
   "ResourceOrderSettings":[
     {"name":"exitSecond","order":14,"path":"objects/exitSecond/exitSecond.yy",},

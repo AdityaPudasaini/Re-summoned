@@ -11,7 +11,6 @@
   "defaultScriptType":1,
   "Folders":[
     {"$GMFolder":"","%Name":"Fonts","folderPath":"folders/Fonts.yy","name":"Fonts","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Videos","folderPath":"folders/Videos.yy","name":"Videos","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Rooms","folderPath":"folders/Rooms.yy","name":"Rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -20,6 +19,7 @@
     {"$GMFolder":"","%Name":"Demon-lord","folderPath":"folders/Sprites/Demon-lord.yy","name":"Demon-lord","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Fire-boss","folderPath":"folders/Sprites/Fire-boss.yy","name":"Fire-boss","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Tilesets","folderPath":"folders/Tilesets.yy","name":"Tilesets","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Videos","folderPath":"folders/Videos.yy","name":"Videos","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
@@ -188,12 +188,12 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"DemonLordBossRoom","path":"rooms/DemonLordBossRoom/DemonLordBossRoom.yy",},},
     {"roomId":{"name":"Menu","path":"rooms/Menu/Menu.yy",},},
     {"roomId":{"name":"rCutScene","path":"rooms/rCutScene/rCutScene.yy",},},
     {"roomId":{"name":"SpawnPoint","path":"rooms/SpawnPoint/SpawnPoint.yy",},},
     {"roomId":{"name":"rEndingRoom","path":"rooms/rEndingRoom/rEndingRoom.yy",},},
     {"roomId":{"name":"rSecondRoom","path":"rooms/rSecondRoom/rSecondRoom.yy",},},
-    {"roomId":{"name":"DemonLordBossRoom","path":"rooms/DemonLordBossRoom/DemonLordBossRoom.yy",},},
     {"roomId":{"name":"FireBossRoom","path":"rooms/FireBossRoom/FireBossRoom.yy",},},
     {"roomId":{"name":"MainRoom","path":"rooms/MainRoom/MainRoom.yy",},},
     {"roomId":{"name":"intro","path":"rooms/intro/intro.yy",},},
