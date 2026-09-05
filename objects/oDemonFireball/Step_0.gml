@@ -1,7 +1,35 @@
+life--;
+
+if (life <= 0)
+{
+    instance_destroy();
+    exit;
+}
+
+
 // =====================================================
 // DEMON LORD FIREBALL MOVEMENT
 // =====================================================
 
+// --- HOME TOWARD PLAYER ---
+var _player = instance_find(oPlayer, 0);
+
+if (_player != noone)
+{
+    // Get the angle from the fireball to the player
+    var _target_direction = point_direction(x, y, _player.x, _player.y);
+
+    // Turn toward the player
+    var _turn_speed = 3;
+
+    direction += clamp(
+        angle_difference(_target_direction, direction),
+        -_turn_speed,
+        _turn_speed
+    );
+}
+
+// --- MOVE ---
 x += lengthdir_x(speed, direction);
 y += lengthdir_y(speed, direction);
 
