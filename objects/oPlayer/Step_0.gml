@@ -412,6 +412,8 @@ health =
 
 if (health <= 0)
 {
+	audio_stop_sound(snd_FireBossMusic);
+	audio_stop_sound(snd_DemonKingMusic);
     room_goto(SpawnPoint);
 }
 

@@ -17,7 +17,8 @@ if (!dead)
 
     var _bar_y = 45;
 
-    var _name_y = _bar_y - 22;
+    var _name_y =
+        _bar_y - 22;
 
 
     // -------------------------------------------------
@@ -31,8 +32,10 @@ if (!dead)
             boss_max_hp
         );
 
+
     var _health_percent =
-        _current_health / boss_max_hp;
+        _current_health /
+        boss_max_hp;
 
 
     // -------------------------------------------------
@@ -40,9 +43,11 @@ if (!dead)
     // -------------------------------------------------
 
     draw_set_halign(fa_center);
+
     draw_set_valign(fa_middle);
 
     draw_set_color(c_white);
+
 
     draw_text_transformed(
         display_get_gui_width() / 2,
@@ -60,6 +65,7 @@ if (!dead)
 
     draw_set_color(c_black);
 
+
     draw_rectangle(
         _bar_x - 4,
         _bar_y - 4,
@@ -75,10 +81,12 @@ if (!dead)
 
     draw_set_color(c_red);
 
+
     draw_rectangle(
         _bar_x,
         _bar_y,
-        _bar_x + (_bar_width * _health_percent),
+        _bar_x +
+        (_bar_width * _health_percent),
         _bar_y + _bar_height,
         false
     );
@@ -89,6 +97,7 @@ if (!dead)
     // -------------------------------------------------
 
     draw_set_color(c_white);
+
 
     draw_rectangle(
         _bar_x,
@@ -106,8 +115,11 @@ if (!dead)
 
 if (dead)
 {
-    var _gw = display_get_gui_width();
-    var _gh = display_get_gui_height();
+    var _gw =
+        display_get_gui_width();
+
+    var _gh =
+        display_get_gui_height();
 
 
     // -------------------------------------------------
@@ -115,18 +127,32 @@ if (dead)
     // -------------------------------------------------
 
     var _box_x1 = 55;
-    var _box_x2 = _gw - 55;
 
-    var _box_y1 = _gh - 210;
-    var _box_y2 = _gh - 25;
+    var _box_x2 =
+        _gw - 55;
+
+    var _box_y1 =
+        _gh - 210;
+
+    var _box_y2 =
+        _gh - 25;
 
 
     // -------------------------------------------------
     // BOX
     // -------------------------------------------------
 
-    draw_set_color(make_color_rgb(10, 10, 15));
+    draw_set_color(
+        make_color_rgb(
+            10,
+            10,
+            15
+        )
+    );
+
+
     draw_set_alpha(0.95);
+
 
     draw_rectangle(
         _box_x1,
@@ -142,7 +168,15 @@ if (dead)
     // -------------------------------------------------
 
     draw_set_alpha(1);
-    draw_set_color(make_color_rgb(180, 130, 45));
+
+    draw_set_color(
+        make_color_rgb(
+            180,
+            130,
+            45
+        )
+    );
+
 
     draw_rectangle(
         _box_x1,
@@ -158,9 +192,17 @@ if (dead)
     // -------------------------------------------------
 
     draw_set_halign(fa_left);
+
     draw_set_valign(fa_top);
 
-    draw_set_color(make_color_rgb(220, 180, 80));
+    draw_set_color(
+        make_color_rgb(
+            220,
+            180,
+            80
+        )
+    );
+
 
     draw_text(
         _box_x1 + 25,
@@ -170,11 +212,11 @@ if (dead)
 
 
     // =================================================
-    // DEATH DIALOGUE
-    // ONE BOX / MULTIPLE SPACED LINES
+    // FINAL DIALOGUE
     // =================================================
 
     draw_set_color(c_white);
+
 
     var _death_text =
         "I am the Demon King... I cannot lose.\n\n"
@@ -189,18 +231,10 @@ if (dead)
         _box_y1 + 55,
         _death_text,
         8,
-        _box_x2 - _box_x1 - 50
+        _box_x2 -
+        _box_x1 -
+        50
     );
-
-
-    // -------------------------------------------------
-    // RESET
-    // -------------------------------------------------
-
-    draw_set_alpha(1);
-    draw_set_color(c_white);
-    draw_set_halign(fa_left);
-    draw_set_valign(fa_top);
 }
 
 
@@ -210,14 +244,22 @@ if (dead)
 
 if (death_flash > 0)
 {
-    var _flash_w = display_get_gui_width();
-    var _flash_h = display_get_gui_height();
+    var _flash_w =
+        display_get_gui_width();
+
+    var _flash_h =
+        display_get_gui_height();
 
 
     draw_set_color(c_white);
 
+
     draw_set_alpha(
-        clamp(death_flash, 0, 1)
+        clamp(
+            death_flash,
+            0,
+            1
+        )
     );
 
 
@@ -243,4 +285,5 @@ draw_set_alpha(1);
 draw_set_color(c_white);
 
 draw_set_halign(fa_left);
+
 draw_set_valign(fa_top);

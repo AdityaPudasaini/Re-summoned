@@ -1,16 +1,28 @@
-    // =====================================================
+// =====================================================
 // FIREBALL MOVEMENT
 // =====================================================
 
-x += lengthdir_x(speed, direction);
-y += lengthdir_y(speed, direction);
+x += lengthdir_x(
+    speed,
+    direction
+);
+
+y += lengthdir_y(
+    speed,
+    direction
+);
 
 
 // =====================================================
 // HIT FIRE BOSS
 // =====================================================
 
-var _boss = instance_find(oFireBoss, 0);
+var _boss =
+    instance_find(
+        oFireBoss,
+        0
+    );
+
 
 if (_boss != noone)
 {
@@ -22,15 +34,24 @@ if (_boss != noone)
             _boss.y
         );
 
-    if (_distance <= _boss.collisionRadius + 16)
+
+    if (
+        _distance <=
+        _boss.collisionRadius + 16
+    )
     {
-        // Get the damage from Ifrit
-        var _damage = _boss.fireballDamage;
+        // Get damage from Ifrit
+
+        var _damage =
+            _boss.fireballDamage;
+
 
         // Damage Ifrit ONLY
+
         with (_boss)
         {
             boss_hp -= _damage;
+
 
             if (boss_hp < 0)
             {
@@ -38,19 +59,29 @@ if (_boss != noone)
             }
         }
 
-        // Destroy fireball
+
         instance_destroy();
+
         exit;
     }
 }
+
 
 // =====================================================
 // HIT DEMON LORD
 // =====================================================
 
-var _demon = instance_find(oDemonLord, 0);
+var _demon =
+    instance_find(
+        oDemonLord,
+        0
+    );
 
-if (_demon != noone && !_demon.dead)
+
+if (
+    _demon != noone &&
+    !_demon.dead
+)
 {
     var _distance =
         point_distance(
@@ -60,27 +91,40 @@ if (_demon != noone && !_demon.dead)
             _demon.y
         );
 
-    if (_distance <= _demon.collisionRadius + 16)
+
+    if (
+        _distance <=
+        _demon.collisionRadius + 16
+    )
     {
-        var _damage = _demon.fireballDamage;
+        // Get damage from Demon Lord
+
+        var _damage =
+            _demon.fireballDamage;
+
+
+        // Damage Demon Lord ONLY
 
         with (_demon)
         {
             boss_hp -= _damage;
+
 
             if (boss_hp < 0)
             {
                 boss_hp = 0;
             }
 
-            if (boss_hp <= 0)
-            {
-                dead = true;
-                active = false;
-            }
+
+            // DO NOT set dead here.
+            //
+            // oDemonLord Step Event handles
+            // the entire death sequence.
         }
 
+
         instance_destroy();
+
         exit;
     }
 }
@@ -92,9 +136,16 @@ if (_demon != noone && !_demon.dead)
 
 if (collisionMap != noone)
 {
-    if (tilemap_get_at_pixel(collisionMap, x, y) != 0)
+    if (
+        tilemap_get_at_pixel(
+            collisionMap,
+            x,
+            y
+        ) != 0
+    )
     {
         instance_destroy();
+
         exit;
     }
 }
@@ -112,5 +163,6 @@ if (
 )
 {
     instance_destroy();
+
     exit;
 }

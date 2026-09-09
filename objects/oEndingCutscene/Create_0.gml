@@ -3,21 +3,6 @@
 // =====================================================
 
 
-// =====================================================
-// SECTION
-// =====================================================
-//
-// 0 = GOD MEMO 1
-// 1 = MC
-// 2 = GOD MEMO 2
-// 3 = GOD MEMO 3
-// 4 = GOD MEMO 4
-// 5 = MC
-// 6 = GOD MEMO 5
-//
-// After section 6 -> BANG
-// =====================================================
-
 ending_section = 0;
 
 
@@ -128,9 +113,11 @@ section_speaker = [
 // CURRENT TEXT
 // =====================================================
 
-current_text = dialogue_text[ending_section][dialogue_line];
+current_text =
+    dialogue_text[ending_section][dialogue_line];
 
-current_speaker = section_speaker[ending_section];
+current_speaker =
+    section_speaker[ending_section];
 
 
 // =====================================================
@@ -162,3 +149,43 @@ ending_bang = false;
 bang_timer = 0;
 
 fade_alpha = 0;
+
+
+// =====================================================
+// FAKE ENDING STORY
+// =====================================================
+//
+// 0 = THE END
+// 1 = HERO QUESTION
+// 2 = 2 YEARS LATER
+// 3 = TRANSITION TO TRUE BOSS
+// =====================================================
+
+fake_ending_phase = 0;
+
+fake_ending_timer = 0;
+
+
+// THE END stays for 5 seconds
+
+fake_end_wait =
+    room_speed * 5;
+
+
+// Question stays for 4 seconds
+
+fake_question_wait =
+    room_speed * 4;
+
+
+// "2 YEARS LATER" stays for 5 seconds
+
+fake_years_wait =
+    room_speed * 5;
+
+
+// Fade values
+
+fake_ending_alpha = 1;
+
+fake_ending_target_alpha = 1;

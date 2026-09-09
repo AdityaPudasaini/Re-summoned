@@ -14,7 +14,32 @@ if (!variable_global_exists("demon_king_fight_started"))
 
 
 // =====================================================
-// WAIT FOR INTRO CUTSCENE
+// DEMON KING MUSIC - 5 SECOND DELAY
+// =====================================================
+
+if (!demon_music_started && !dead)
+{
+    if (global.demon_king_fight_started)
+    {
+        demon_music_timer--;
+
+        if (demon_music_timer <= 0)
+        {
+            demon_music_started = true;
+
+            demon_music_id =
+                audio_play_sound(
+                    snd_DemonKingMusic,
+                    2,
+                    true
+                );
+        }
+    }
+}
+
+
+// =====================================================
+// WAIT FOR BOSS FIGHT TO START
 // =====================================================
 
 if (!global.demon_king_fight_started)
@@ -29,54 +54,121 @@ if (!global.demon_king_fight_started)
 
 if (boss_hp <= 0)
 {
-    // ---------------------------------------------
-    // LOCK HP
-    // ---------------------------------------------
-
     boss_hp = 0;
 
 
-    // ---------------------------------------------
-    // ENTER DEATH STATE ONCE
-    // ---------------------------------------------
+    // =================================================
+    // START DEATH SEQUENCE
+    // =================================================
 
-    if (!dead)
+    if (!death_sequence_started)
     {
+        death_sequence_started = true;
+
         dead = true;
         active = false;
 
+
+        // -------------------------------------------------
+        // STOP ALL ATTACKS
+        // -------------------------------------------------
+
         attacking = false;
+
+        magicAttacking = false;
+        magicFired = false;
+
+        aoeAttacking = false;
+        aoeHit = false;
+
+
+        // -------------------------------------------------
+        // STOP MOVEMENT
+        // -------------------------------------------------
 
         hspeed = 0;
         vspeed = 0;
 
+
+        // -------------------------------------------------
+        // STOP ANIMATION
+        // -------------------------------------------------
+
         image_speed = 0;
         image_index = 0;
 
-        // Stop future taunts
+
+        // =================================================
+        // STOP DEMON KING MUSIC
+        // =================================================
+
+        if (demon_music_id != -1)
+        {
+            audio_stop_sound(
+                demon_music_id
+            );
+
+            demon_music_id = -1;
+        }
+
+
+        // Extra safety
+        audio_stop_sound(
+            snd_DemonKingMusic
+        );
+
+
+        demon_music_started = true;
+
+
+        // =================================================
+        // HIDE DEMON KING SPRITE
+        // =================================================
+
+        // DO NOT USE visible = false.
+        // DO NOT USE sprite_index = -1.
+        //
+        // image_alpha hides ONLY the sprite while
+        // allowing Draw GUI to continue drawing.
+
+        image_alpha = 0;
+
+
+        // -------------------------------------------------
+        // STOP FUTURE TAUNTS
+        // -------------------------------------------------
+
         taunt1_played = true;
         taunt2_played = true;
     }
 
 
-    // ---------------------------------------------
-    // DEATH VOICE
-    // ---------------------------------------------
+    // =================================================
+    // KEEP SPRITE INVISIBLE
+    // =================================================
+
+    image_alpha = 0;
+
+
+    // =================================================
+    // DEFEAT VOICE
+    // =================================================
 
     if (!defeat_voice_played)
     {
         defeat_voice_played = true;
 
-        defeat_voice_id = audio_play_sound(
-            sndDemonKingDefeat,
-            2,
-            false
-        );
+        defeat_voice_id =
+            audio_play_sound(
+                sndDemonKingDefeat,
+                2,
+                false
+            );
     }
 
 
     // =================================================
-    // WAIT FOR DEATH VOICE
+    // WAIT FOR DEFEAT VOICE
     // =================================================
 
     if (!death_bang_played)
@@ -87,7 +179,9 @@ if (boss_hp <= 0)
         if (defeat_voice_id != -1)
         {
             _voice_finished =
-                !audio_is_playing(defeat_voice_id);
+                !audio_is_playing(
+                    defeat_voice_id
+                );
         }
         else
         {
@@ -95,18 +189,10 @@ if (boss_hp <= 0)
         }
 
 
-        // ---------------------------------------------
-        // DEATH VOICE FINISHED
-        // ---------------------------------------------
-
         if (_voice_finished)
         {
             death_bang_played = true;
 
-
-            // -----------------------------------------
-            // BANG
-            // -----------------------------------------
 
             audio_play_sound(
                 sndIntroBang,
@@ -114,10 +200,6 @@ if (boss_hp <= 0)
                 false
             );
 
-
-            // -----------------------------------------
-            // START WHITE FLASH
-            // -----------------------------------------
 
             death_flash = 1;
         }
@@ -137,10 +219,16 @@ if (boss_hp <= 0)
         {
             death_flash = 0;
 
-            room_goto(rEndingRoom);
+            room_goto(
+                rEndingRoom
+            );
         }
     }
 
+
+    // =================================================
+    // STOP NORMAL BOSS CODE
+    // =================================================
 
     exit;
 }
@@ -150,7 +238,12 @@ if (boss_hp <= 0)
 // FIND PLAYER
 // =====================================================
 
-var _player = instance_find(oPlayer, 0);
+var _player =
+    instance_find(
+        oPlayer,
+        0
+    );
+
 
 if (_player == noone)
 {
@@ -167,6 +260,7 @@ if (attackCooldown > 0)
     attackCooldown--;
 }
 
+
 if (aoeCooldown > 0)
 {
     aoeCooldown--;
@@ -174,17 +268,20 @@ if (aoeCooldown > 0)
 
 
 // =====================================================
-// MAGIC TIMER - COUNTS DOWN REGARDLESS OF PLAYER DISTANCE
+// MAGIC TIMER
 // =====================================================
 
-if (!magicAttacking && magicTimer > 0)
+if (
+    !magicAttacking &&
+    magicTimer > 0
+)
 {
     magicTimer--;
 }
 
 
 // =====================================================
-// DISTANCE
+// DISTANCE TO PLAYER
 // =====================================================
 
 var _distance =
@@ -197,12 +294,14 @@ var _distance =
 
 
 // =====================================================
-// CLOSE RANGE TIMER FOR AOE
-// The player has to stay close continuously.
-// Moving away resets the timer.
+// AOE CLOSE TIMER
 // =====================================================
 
-if (!aoeAttacking && !attacking && !magicAttacking)
+if (
+    !aoeAttacking &&
+    !attacking &&
+    !magicAttacking
+)
 {
     if (_distance <= aoeCloseDistance)
     {
@@ -220,8 +319,6 @@ if (!aoeAttacking && !attacking && !magicAttacking)
 
 // =====================================================
 // START AOE ATTACK
-// Only triggers after the player has stayed close too long.
-// This takes priority over sword/magic.
 // =====================================================
 
 if (
@@ -233,31 +330,37 @@ if (
 )
 {
     aoeAttacking = true;
+
     aoeHit = false;
 
     hspeed = 0;
     vspeed = 0;
 
     image_index = 0;
-    image_speed = aoeImageSpeed;
 
-    // The AOE animation is available in left/right.
+    image_speed =
+        aoeImageSpeed;
+
+
     if (_player.x < x)
     {
         facingDirection = 2;
-        sprite_index = sDemonAOEAttackLeft;
+
+        sprite_index =
+            sDemonAOEAttackLeft;
     }
     else
     {
         facingDirection = 3;
-        sprite_index = sDemonAOEAttackRight;
+
+        sprite_index =
+            sDemonAOEAttackRight;
     }
 }
 
 
 // =====================================================
 // AOE ATTACKING
-// Fast wind-up and one hit only.
 // =====================================================
 
 if (aoeAttacking)
@@ -265,49 +368,108 @@ if (aoeAttacking)
     hspeed = 0;
     vspeed = 0;
 
-    image_speed = aoeImageSpeed;
+    image_speed =
+        aoeImageSpeed;
 
-    // Hit once at the active frame.
-    if (!aoeHit && image_index >= aoeHitFrame)
+
+    // -------------------------------------------------
+    // AOE HIT
+    // -------------------------------------------------
+
+    if (
+        !aoeHit &&
+        image_index >= aoeHitFrame
+    )
     {
         aoeHit = true;
 
-        if (point_distance(x, y, _player.x, _player.y) <= aoeHitRadius)
+
+        if (
+            point_distance(
+                x,
+                y,
+                _player.x,
+                _player.y
+            ) <= aoeHitRadius
+        )
         {
-            if (!_player.invincible && !_player.isHurt)
+            if (
+                !_player.invincible &&
+                !_player.isHurt
+            )
             {
                 with (_player)
                 {
-                    health -= other.aoeDamage;
+                    health -=
+                        other.aoeDamage;
 
                     isHurt = true;
 
                     image_index = 0;
+
                     image_speed = 1;
                 }
             }
         }
     }
 
-    // Finish the fast AOE and give the player a fresh escape period.
-    if (image_index >= image_number - 1)
+
+    // -------------------------------------------------
+    // FINISH AOE
+    // -------------------------------------------------
+
+    if (
+        image_index >=
+        image_number - 1
+    )
     {
         aoeAttacking = false;
+
         aoeHit = false;
 
         aoeCloseTimer = 0;
-        aoeCooldown = aoeCooldownTime;
+
+        aoeCooldown =
+            aoeCooldownTime;
 
         image_index = 0;
 
+
         switch (facingDirection)
         {
-            case 0: sprite_index = sDemonWalkDown;  break;
-            case 1: sprite_index = sDemonWalkUp;    break;
-            case 2: sprite_index = sDemonWalkLeft;  break;
-            case 3: sprite_index = sDemonWalkRight; break;
+            case 0:
+
+                sprite_index =
+                    sDemonWalkDown;
+
+                break;
+
+
+            case 1:
+
+                sprite_index =
+                    sDemonWalkUp;
+
+                break;
+
+
+            case 2:
+
+                sprite_index =
+                    sDemonWalkLeft;
+
+                break;
+
+
+            case 3:
+
+                sprite_index =
+                    sDemonWalkRight;
+
+                break;
         }
     }
+
 
     exit;
 }
@@ -315,31 +477,39 @@ if (aoeAttacking)
 
 // =====================================================
 // START MAGIC ATTACK
-// Fires on a timer, no distance check
 // =====================================================
 
-if (magicTimer <= 0 && !attacking && !magicAttacking)
+if (
+    magicTimer <= 0 &&
+    !attacking &&
+    !magicAttacking
+)
 {
     magicAttacking = true;
+
     magicFired = false;
 
     hspeed = 0;
     vspeed = 0;
 
     image_index = 0;
+
     image_speed = 1;
 
-    // Demon magic only has LEFT / RIGHT cast sprites,
-    // so aim at whichever horizontal side the player is on.
+
     if (_player.x < x)
     {
         facingDirection = 2;
-        sprite_index = sDemonMagicAttackLeft;
+
+        sprite_index =
+            sDemonMagicAttackLeft;
     }
     else
     {
         facingDirection = 3;
-        sprite_index = sDemonMagicAttackRight;
+
+        sprite_index =
+            sDemonMagicAttackRight;
     }
 }
 
@@ -355,59 +525,111 @@ if (magicAttacking)
 
     image_speed = 1;
 
-    // Same idea as the player's magic: fire once around frame 4.
-    if (!magicFired && image_index >= 4)
+
+    // -------------------------------------------------
+    // FIRE MAGIC PROJECTILE
+    // -------------------------------------------------
+
+    if (
+        !magicFired &&
+        image_index >= 4
+    )
     {
         magicFired = true;
 
-        audio_play_sound(sndFireball, 0, false);
 
-        var _fireball = instance_create_layer(x, y, layer, oDemonFireball);
+        audio_play_sound(
+            snd_DemonKing_Magic,
+            0,
+            false
+        );
+
+
+        var _fireball =
+            instance_create_layer(
+                x,
+                y,
+                layer,
+                oDemonFireball
+            );
+
 
         if (facingDirection == 2)
         {
-            _fireball.sprite_index = sDemonMagicBallLeft;
+            _fireball.sprite_index =
+                sDemonMagicBallLeft;
+
             _fireball.direction = 180;
         }
         else
         {
-            _fireball.sprite_index = sDemonMagicBallRight;
+            _fireball.sprite_index =
+                sDemonMagicBallRight;
+
             _fireball.direction = 0;
         }
 
-        _fireball.damage = fireballDamage;
 
-        // Match the player's fireball spawn positioning.
+        _fireball.damage =
+            fireballDamage;
+
+
         _fireball.y -= 35;
-        _fireball.x += lengthdir_x(45, _fireball.direction);
-        _fireball.y += lengthdir_y(45, _fireball.direction);
+
+
+        _fireball.x +=
+            lengthdir_x(
+                45,
+                _fireball.direction
+            );
+
+
+        _fireball.y +=
+            lengthdir_y(
+                45,
+                _fireball.direction
+            );
     }
 
-    // Finish the cast, then restart the timer.
-    if (image_index >= image_number - 1)
+
+    // -------------------------------------------------
+    // FINISH MAGIC
+    // -------------------------------------------------
+
+    if (
+        image_index >=
+        image_number - 1
+    )
     {
         magicAttacking = false;
+
         magicFired = false;
-        magicTimer = magicInterval;
+
+        magicTimer =
+            magicInterval;
 
         image_index = 0;
 
+
         if (facingDirection == 2)
         {
-            sprite_index = sDemonWalkLeft;
+            sprite_index =
+                sDemonWalkLeft;
         }
         else
         {
-            sprite_index = sDemonWalkRight;
+            sprite_index =
+                sDemonWalkRight;
         }
     }
+
 
     exit;
 }
 
 
 // =====================================================
-// ATTACKING
+// SWORD ATTACK
 // =====================================================
 
 if (attacking)
@@ -420,89 +642,89 @@ if (attacking)
     image_speed = 1;
 
 
-    // =================================================
-    // DAMAGE PLAYER
-    // =================================================
+    // -------------------------------------------------
+    // DAMAGE CHECK
+    // -------------------------------------------------
 
-    if (image_index >= 5 && !attackHit)
+    if (
+        image_index >= 5 &&
+        !attackHit
+    )
     {
         var _hit = false;
 
 
         switch (facingDirection)
         {
-            // -----------------------------------------
-            // DOWN
-            // -----------------------------------------
-
             case 0:
 
                 _hit =
                     _player.y > y &&
                     (_player.y - y) <= 100 &&
-                    abs(_player.x - x) <= 65;
+                    abs(
+                        _player.x - x
+                    ) <= 65;
 
                 break;
 
-
-            // -----------------------------------------
-            // UP
-            // -----------------------------------------
 
             case 1:
 
                 _hit =
                     _player.y < y &&
                     (y - _player.y) <= 100 &&
-                    abs(_player.x - x) <= 65;
+                    abs(
+                        _player.x - x
+                    ) <= 65;
 
                 break;
 
-
-            // -----------------------------------------
-            // LEFT
-            // -----------------------------------------
 
             case 2:
 
                 _hit =
                     _player.x < x &&
                     (x - _player.x) <= 100 &&
-                    abs(_player.y - y) <= 65;
+                    abs(
+                        _player.y - y
+                    ) <= 65;
 
                 break;
 
-
-            // -----------------------------------------
-            // RIGHT
-            // -----------------------------------------
 
             case 3:
 
                 _hit =
                     _player.x > x &&
                     (_player.x - x) <= 100 &&
-                    abs(_player.y - y) <= 65;
+                    abs(
+                        _player.y - y
+                    ) <= 65;
 
                 break;
         }
 
 
-        // =================================================
+        // -------------------------------------------------
         // HIT PLAYER
-        // =================================================
+        // -------------------------------------------------
 
         if (_hit)
         {
-            if (!_player.invincible && !_player.isHurt)
+            if (
+                !_player.invincible &&
+                !_player.isHurt
+            )
             {
                 with (_player)
                 {
-                    health -= other.attackDamage;
+                    health -=
+                        other.attackDamage;
 
                     isHurt = true;
 
                     image_index = 0;
+
                     image_speed = 1;
                 }
 
@@ -512,11 +734,14 @@ if (attacking)
     }
 
 
-    // =================================================
-    // ATTACK FINISHED
-    // =================================================
+    // -------------------------------------------------
+    // FINISH SWORD ATTACK
+    // -------------------------------------------------
 
-    if (image_index >= image_number - 1)
+    if (
+        image_index >=
+        image_number - 1
+    )
     {
         attacking = false;
 
@@ -524,18 +749,22 @@ if (attacking)
 
         attackHit = false;
 
-        attackCooldown = attackCooldownTime;
+        attackCooldown =
+            attackCooldownTime;
 
         image_index = 0;
 
         attack_count++;
 
 
-        // =================================================
+        // -------------------------------------------------
         // TAUNT 1
-        // =================================================
+        // -------------------------------------------------
 
-        if (attack_count >= 3 && !taunt1_played)
+        if (
+            attack_count >= 3 &&
+            !taunt1_played
+        )
         {
             audio_play_sound(
                 sndDemonKingTaunt1,
@@ -547,11 +776,14 @@ if (attacking)
         }
 
 
-        // =================================================
+        // -------------------------------------------------
         // TAUNT 2
-        // =================================================
+        // -------------------------------------------------
 
-        if (attack_count >= 7 && !taunt2_played)
+        if (
+            attack_count >= 7 &&
+            !taunt2_played
+        )
         {
             audio_play_sound(
                 sndDemonKingTaunt2,
@@ -633,29 +865,45 @@ if (_distance > stopDistance)
 
 
     x += _moveX;
+
     y += _moveY;
 
 
-    // =================================================
-    // WALK ANIMATION
-    // =================================================
+    // -------------------------------------------------
+    // WALK SPRITE
+    // -------------------------------------------------
 
     switch (facingDirection)
     {
         case 0:
-            sprite_index = sDemonWalkDown;
+
+            sprite_index =
+                sDemonWalkDown;
+
             break;
+
 
         case 1:
-            sprite_index = sDemonWalkUp;
+
+            sprite_index =
+                sDemonWalkUp;
+
             break;
+
 
         case 2:
-            sprite_index = sDemonWalkLeft;
+
+            sprite_index =
+                sDemonWalkLeft;
+
             break;
 
+
         case 3:
-            sprite_index = sDemonWalkRight;
+
+            sprite_index =
+                sDemonWalkRight;
+
             break;
     }
 
@@ -693,26 +941,54 @@ if (
 
     attackHit = false;
 
+
+    // -------------------------------------------------
+    // MELEE SOUND
+    // -------------------------------------------------
+
+    audio_play_sound(
+        snd_DemonKing_Melee,
+        1,
+        false
+    );
+
+
     image_index = 0;
+
     image_speed = 1;
 
 
     switch (facingDirection)
     {
         case 0:
-            sprite_index = sDemonSwordAttackDown;
+
+            sprite_index =
+                sDemonSwordAttackDown;
+
             break;
+
 
         case 1:
-            sprite_index = sDemonSwordAttackUp;
+
+            sprite_index =
+                sDemonSwordAttackUp;
+
             break;
+
 
         case 2:
-            sprite_index = sDemonSwordAttackLeft;
+
+            sprite_index =
+                sDemonSwordAttackLeft;
+
             break;
 
+
         case 3:
-            sprite_index = sDemonSwordAttackRight;
+
+            sprite_index =
+                sDemonSwordAttackRight;
+
             break;
     }
 }

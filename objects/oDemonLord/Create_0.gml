@@ -16,7 +16,7 @@ if (!variable_global_exists("demon_king_fight_started"))
 // HP
 // -----------------------------------------------------
 
-boss_max_hp = 1000;
+boss_max_hp = 100;
 boss_hp = boss_max_hp;
 
 
@@ -66,7 +66,7 @@ attackTimer = 0;
 
 attackCooldown = 0;
 
-attackCooldownTime = 45;
+attackCooldownTime = 60;
 
 attackHit = false;
 
@@ -80,7 +80,6 @@ attack_count = 0;
 magicAttacking = false;
 magicFired = false;
 
-// 180 steps = about 3 seconds at 60 FPS
 magicTimer = 180;
 magicInterval = 180;
 
@@ -89,22 +88,21 @@ magicInterval = 180;
 // AOE ATTACK
 // -----------------------------------------------------
 
-// The player must stay close for this long before the
-// Demon Lord uses his fast area attack.
 aoeAttacking = false;
 aoeHit = false;
 
 aoeCloseTimer = 0;
-aoeCloseTime = 90;          // 1.5 seconds close
-aoeCloseDistance = 165;   // distance considered "too close"
+aoeCloseTime = 90;
+
+aoeCloseDistance = 165;
+
 aoeHitRadius = 180;
+
 aoeDamage = 35;
 
 aoeCooldown = 0;
-aoeCooldownTime = 150;      // 2.5 seconds before another AOE can trigger
+aoeCooldownTime = 150;
 
-// Fast animation = only a short escape window once the
-// attack starts.
 aoeImageSpeed = 1.5;
 aoeHitFrame = 6;
 
@@ -161,7 +159,21 @@ death_flash_speed = 0.04;
 sprite_index = sDemonWalkDown;
 
 image_index = 0;
+
 image_speed = 0.5;
 
 image_xscale = 0.4;
 image_yscale = 0.4;
+
+
+// =====================================================
+// DEMON KING MUSIC
+// =====================================================
+
+// 10 seconds AFTER the actual boss fight starts.
+
+demon_music_timer = room_speed * 5;
+
+demon_music_started = false;
+
+demon_music_id = -1;

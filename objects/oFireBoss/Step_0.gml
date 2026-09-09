@@ -1,3 +1,4 @@
+
 // =====================================================
 // FIRE BOSS - STEP
 // =====================================================
@@ -168,6 +169,12 @@ if (fireballCooldown <= 0)
                 "Instances",
                 oFireBossFireball
             );
+		// FIREBALL SOUND
+		audio_play_sound(
+		    sndFireball,
+		    2,
+		    false
+		);
 
         _fireball.direction = _directionToPlayer;
 
@@ -286,35 +293,38 @@ if (boss_hp <= 0)
     boss_defeated = true;
 
 
-    // =================================================
-    // STOP ALL FUTURE TAUNTS
-    // =================================================
+	 // =================================================
+	// STOP FIRE BOSS MUSIC
+	// =================================================
 
-    tauntTimer = -1;
-
-    tauntPlayed1 = true;
-    tauntPlayed2 = true;
-    tauntPlayed3 = true;
+	audio_stop_sound(snd_FireBossMusic);
 
 
-    // =================================================
-    // STOP CURRENT IFRIT TAUNT
-    // =================================================
+	// =================================================
+	// STOP CURRENT IFRIT TAUNT
+	// =================================================
 
-    audio_stop_sound(sndIfritTaunt1);
-    audio_stop_sound(sndIfritTaunt2);
-    audio_stop_sound(sndIfritTaunt3);
+	audio_stop_sound(sndIfritTaunt1);
+	audio_stop_sound(sndIfritTaunt2);
+	audio_stop_sound(sndIfritTaunt3);
 
 
-    // =================================================
-    // IFRIT DEFEAT VOICE
-    // =================================================
+	// =================================================
+	// IFRIT DEFEAT VOICE
+	// =================================================
 
-    audio_play_sound(
-        sndIfritDefeat,
-        2,
-        false
-    );
+	audio_play_sound(
+	    sndIfritDefeat,
+	    2,
+	    false
+	);
+
+
+	// =================================================
+	// START NORMAL GAME MUSIC
+	// =================================================
+
+	audio_play_sound(sndGameMusic, 5, true);
 
 
     // =================================================

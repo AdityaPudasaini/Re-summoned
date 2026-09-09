@@ -63,9 +63,15 @@ if (!voice_playing)
 
 if (keyboard_check_pressed(vk_enter))
 {
-    // IMPORTANT:
-    // Do NOT stop the voice here.
-    // Let the voice finish naturally.
+     if (cutscene_part == 1)
+    {
+        audio_play_sound(
+            sndDialogueBlip,
+            0,
+            false
+        );
+    }
+
 
 
     // -------------------------------------------------

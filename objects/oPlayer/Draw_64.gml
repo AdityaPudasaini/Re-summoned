@@ -382,14 +382,50 @@ var _gh = display_get_gui_height();
 
 
 // =====================================================
-// DARK BACKGROUND
+// COLORS
 // =====================================================
 
-draw_set_alpha(0.92);
+var _col_bg =
+    make_color_rgb(7, 14, 20);
 
-draw_set_color(
-    make_color_rgb(10, 8, 15)
-);
+var _col_panel =
+    make_color_rgb(12, 24, 31);
+
+var _col_panel_border =
+    make_color_rgb(55, 105, 120);
+
+var _col_text =
+    make_color_rgb(225, 235, 238);
+
+var _col_dim =
+    make_color_rgb(115, 140, 150);
+
+var _col_blue =
+    make_color_rgb(70, 180, 215);
+
+var _col_blue_bright =
+    make_color_rgb(145, 225, 245);
+
+var _col_locked =
+    make_color_rgb(22, 35, 42);
+
+var _col_unlocked =
+    make_color_rgb(25, 75, 80);
+
+var _col_green =
+    make_color_rgb(100, 220, 180);
+
+var _col_gold =
+    make_color_rgb(225, 195, 105);
+
+
+// =====================================================
+// BACKGROUND
+// =====================================================
+
+draw_set_alpha(0.96);
+
+draw_set_color(_col_bg);
 
 draw_rectangle(
     0,
@@ -406,55 +442,43 @@ draw_set_alpha(1);
 // MAIN PANEL
 // =====================================================
 
-var _panel_x = _gw * 0.08;
-var _panel_y = _gh * 0.06;
+var _panel_x = 20;
+var _panel_y = 18;
 
-var _panel_w = _gw * 0.84;
-var _panel_h = _gh * 0.88;
+var _panel_w = _gw - 40;
+var _panel_h = _gh - 36;
 
+var _panel_right =
+    _panel_x + _panel_w;
 
-// Shadow
-draw_set_color(c_black);
-
-draw_rectangle(
-    _panel_x + 6,
-    _panel_y + 6,
-    _panel_x + _panel_w + 6,
-    _panel_y + _panel_h + 6,
-    false
-);
+var _panel_bottom =
+    _panel_y + _panel_h;
 
 
-// Panel
-draw_set_color(
-    make_color_rgb(20, 16, 25)
-);
+draw_set_color(_col_panel);
 
 draw_rectangle(
     _panel_x,
     _panel_y,
-    _panel_x + _panel_w,
-    _panel_y + _panel_h,
+    _panel_right,
+    _panel_bottom,
     false
 );
 
 
-// Border
-draw_set_color(
-    make_color_rgb(190, 165, 130)
-);
+draw_set_color(_col_panel_border);
 
 draw_rectangle(
     _panel_x,
     _panel_y,
-    _panel_x + _panel_w,
-    _panel_y + _panel_h,
+    _panel_right,
+    _panel_bottom,
     true
 );
 
 
 // =====================================================
-// TEXT SETTINGS
+// TEXT ALIGNMENT
 // =====================================================
 
 draw_set_halign(fa_center);
@@ -465,11 +489,11 @@ draw_set_valign(fa_middle);
 // TITLE
 // =====================================================
 
-draw_set_color(c_white);
+draw_set_color(_col_text);
 
 draw_text(
     _gw * 0.50,
-    _panel_y + 32,
+    _panel_y + 22,
     "ABILITY TREE"
 );
 
@@ -478,14 +502,12 @@ draw_text(
 // EMPOWER POINTS
 // =====================================================
 
-draw_set_color(
-    make_color_rgb(220, 190, 145)
-);
+draw_set_color(_col_blue_bright);
 
 draw_text(
     _gw * 0.50,
-    _panel_y + 63,
-    "Empower Points: " +
+    _panel_y + 47,
+    "EMPOWER POINTS: " +
     string(global.empower_points)
 );
 
@@ -505,63 +527,137 @@ var _branch_count =
 // TREE POSITIONS
 // =====================================================
 
-var _root_x = _gw * 0.50;
-var _root_y = _panel_y + 115;
+var _root_x =
+    _gw * 0.50;
 
-var _branch_y = _panel_y + 260;
-var _child_y = _panel_y + 385;
+var _root_y =
+    _gh * 0.17;
 
-var _spacing = _gw * 0.22;
+var _branch_y =
+    _gh * 0.38;
+
+var _child_y =
+    _gh * 0.64;
+
+
+// Keep original alignment
+var _spacing =
+    _gw * 0.25;
 
 var _first_x =
-    _gw * 0.50 -
-    _spacing;
+    _gw * 0.25;
+
+
+// Node size
+var _node_radius = 38;
 
 
 // =====================================================
-// ROOT
+// ROOT GLOW
 // =====================================================
 
-draw_set_color(
-    make_color_rgb(38, 32, 48)
-);
+draw_set_alpha(0.06);
 
-draw_rectangle(
-    _root_x - 75,
-    _root_y - 30,
-    _root_x + 75,
-    _root_y + 30,
+draw_set_color(_col_blue);
+
+draw_circle(
+    _root_x,
+    _root_y,
+    66,
     false
 );
 
-draw_set_color(
-    make_color_rgb(130, 110, 145)
+draw_set_alpha(0.10);
+
+draw_circle(
+    _root_x,
+    _root_y,
+    57,
+    false
 );
 
-draw_rectangle(
-    _root_x - 75,
-    _root_y - 30,
-    _root_x + 75,
-    _root_y + 30,
+draw_set_alpha(1);
+
+
+// =====================================================
+// ROOT NODE
+// =====================================================
+
+draw_set_color(
+    make_color_rgb(20, 48, 58)
+);
+
+draw_circle(
+    _root_x,
+    _root_y,
+    43,
+    false
+);
+
+
+draw_set_color(_col_blue);
+
+draw_circle(
+    _root_x,
+    _root_y,
+    43,
     true
 );
 
-draw_set_color(c_white);
+
+draw_set_color(
+    make_color_rgb(9, 21, 27)
+);
+
+draw_circle(
+    _root_x,
+    _root_y,
+    35,
+    false
+);
+
+
+draw_set_color(
+    make_color_rgb(95, 195, 220)
+);
+
+draw_circle(
+    _root_x,
+    _root_y,
+    35,
+    true
+);
+
+
+// =====================================================
+// ROOT ICON
+// =====================================================
+
+draw_set_color(_col_text);
 
 draw_text(
     _root_x,
     _root_y,
+    "✦"
+);
+
+
+// =====================================================
+// ROOT LABEL
+// =====================================================
+
+draw_set_color(_col_dim);
+
+draw_text(
+    _root_x,
+    _root_y + 53,
     "EMPOWER"
 );
 
 
 // =====================================================
-// ROOT → BRANCH LINES
+// ROOT -> BRANCH CONNECTIONS
 // =====================================================
-
-draw_set_color(
-    make_color_rgb(90, 75, 105)
-);
 
 for (var i = 0; i < _branch_count; i++)
 {
@@ -569,11 +665,28 @@ for (var i = 0; i < _branch_count; i++)
         _first_x +
         (i * _spacing);
 
-    draw_line(
+    var _branch =
+        _branches[i];
+
+
+    if (_branch.unlocked)
+    {
+        draw_set_color(_col_blue_bright);
+    }
+    else
+    {
+        draw_set_color(
+            make_color_rgb(45, 85, 100)
+        );
+    }
+
+
+    draw_line_width(
         _root_x,
-        _root_y + 30,
+        _root_y + 43,
         _bx,
-        _branch_y - 45
+        _branch_y - _node_radius,
+        2
     );
 }
 
@@ -584,139 +697,23 @@ for (var i = 0; i < _branch_count; i++)
 
 for (var i = 0; i < _branch_count; i++)
 {
-    var _branch = _branches[i];
+    var _branch =
+        _branches[i];
 
     var _bx =
         _first_x +
         (i * _spacing);
 
+
     var _selected =
-        (i == ability_selected &&
-         ability_tier == 0);
-
-
-    // -------------------------------------------------
-    // BRANCH → CHILD LINE
-    // -------------------------------------------------
-
-    if (array_length(_branch.children) > 0)
-    {
-        draw_set_color(
-            make_color_rgb(90, 75, 105)
+        (
+            i == ability_selected &&
+            ability_tier == 0
         );
-
-        draw_line(
-            _bx,
-            _branch_y + 45,
-            _bx,
-            _child_y - 45
-        );
-    }
-
-
-    // -------------------------------------------------
-    // BRANCH BACKGROUND
-    // -------------------------------------------------
-
-    if (_branch.unlocked)
-    {
-        draw_set_color(
-            make_color_rgb(45, 90, 55)
-        );
-    }
-    else if (_selected)
-    {
-        draw_set_color(
-            make_color_rgb(105, 70, 30)
-        );
-    }
-    else
-    {
-        draw_set_color(
-            make_color_rgb(38, 33, 48)
-        );
-    }
-
-
-    draw_rectangle(
-        _bx - 75,
-        _branch_y - 40,
-        _bx + 75,
-        _branch_y + 40,
-        false
-    );
-
-
-    // -------------------------------------------------
-    // BRANCH BORDER
-    // -------------------------------------------------
-
-    if (_selected)
-    {
-        draw_set_color(
-            make_color_rgb(255, 210, 90)
-        );
-    }
-    else
-    {
-        draw_set_color(
-            make_color_rgb(145, 125, 155)
-        );
-    }
-
-
-    draw_rectangle(
-        _bx - 75,
-        _branch_y - 40,
-        _bx + 75,
-        _branch_y + 40,
-        true
-    );
-
-
-    // -------------------------------------------------
-    // BRANCH NAME
-    // -------------------------------------------------
-
-    draw_set_color(c_white);
-
-    draw_text(
-        _bx,
-        _branch_y - 12,
-        _branch.name
-    );
-
-
-    // -------------------------------------------------
-    // BRANCH COST / STATUS
-    // -------------------------------------------------
-
-    if (_branch.unlocked)
-    {
-        draw_set_color(
-            make_color_rgb(120, 230, 140)
-        );
-
-        draw_text(
-            _bx,
-            _branch_y + 15,
-            "UNLOCKED"
-        );
-    }
-    else
-    {
-        draw_set_color(c_white);
-
-        draw_text(
-            _bx,
-            _branch_y + 15,
-            string(_branch.cost) + " POINT"
-        );
-    }
 
 
     // =================================================
-    // CHILD
+    // BRANCH -> CHILD CONNECTION
     // =================================================
 
     if (array_length(_branch.children) > 0)
@@ -724,110 +721,643 @@ for (var i = 0; i < _branch_count; i++)
         var _child =
             _branch.children[0];
 
-        var _child_selected =
-            (i == ability_selected &&
-             ability_tier == 1);
 
-
-        // -------------------------------------------------
-        // CHILD BACKGROUND
-        // -------------------------------------------------
-
-        if (_child.unlocked)
+        if (_branch.unlocked)
         {
-            draw_set_color(
-                make_color_rgb(45, 90, 55)
-            );
-        }
-        else if (_child_selected)
-        {
-            draw_set_color(
-                make_color_rgb(105, 70, 30)
-            );
+            draw_set_color(_col_blue_bright);
         }
         else
         {
             draw_set_color(
-                make_color_rgb(32, 29, 40)
+                make_color_rgb(45, 80, 95)
             );
         }
 
 
-        draw_rectangle(
-            _bx - 75,
-            _child_y - 40,
-            _bx + 75,
-            _child_y + 40,
+        draw_line_width(
+            _bx,
+            _branch_y + _node_radius,
+            _bx,
+            _child_y - _node_radius,
+            2
+        );
+    }
+
+
+    // =================================================
+    // SELECTED GLOW
+    // =================================================
+
+    if (_selected)
+    {
+        draw_set_alpha(0.06);
+
+        draw_set_color(_col_blue_bright);
+
+        draw_circle(
+            _bx,
+            _branch_y,
+            64,
+            false
+        );
+
+        draw_set_alpha(0.10);
+
+        draw_circle(
+            _bx,
+            _branch_y,
+            54,
+            false
+        );
+
+        draw_set_alpha(1);
+    }
+
+
+    // =================================================
+    // NODE BACKGROUND
+    // =================================================
+
+    if (_branch.unlocked)
+    {
+        draw_set_color(_col_unlocked);
+    }
+    else
+    {
+        draw_set_color(_col_locked);
+    }
+
+
+    draw_circle(
+        _bx,
+        _branch_y,
+        _node_radius,
+        false
+    );
+
+
+    // =================================================
+    // NODE BORDER
+    // =================================================
+
+    if (_selected)
+    {
+        draw_set_color(_col_blue_bright);
+    }
+    else if (_branch.unlocked)
+    {
+        draw_set_color(_col_blue);
+    }
+    else
+    {
+        draw_set_color(
+            make_color_rgb(55, 100, 115)
+        );
+    }
+
+
+    draw_circle(
+        _bx,
+        _branch_y,
+        _node_radius,
+        true
+    );
+
+
+    // =================================================
+    // INNER RING
+    // =================================================
+
+    draw_set_color(
+        make_color_rgb(9, 20, 26)
+    );
+
+    draw_circle(
+        _bx,
+        _branch_y,
+        _node_radius - 7,
+        false
+    );
+
+
+    draw_set_color(
+        make_color_rgb(50, 105, 120)
+    );
+
+    draw_circle(
+        _bx,
+        _branch_y,
+        _node_radius - 7,
+        true
+    );
+
+
+    // =================================================
+    // ICON
+    // =================================================
+
+    draw_set_color(_col_text);
+
+
+    switch (_branch.type)
+    {
+        // =============================================
+        // HEART
+        // =============================================
+
+        case "health":
+
+            draw_circle(
+                _bx - 8,
+                _branch_y - 6,
+                8,
+                false
+            );
+
+            draw_circle(
+                _bx + 8,
+                _branch_y - 6,
+                8,
+                false
+            );
+
+            draw_triangle(
+                _bx - 16,
+                _branch_y - 3,
+
+                _bx + 16,
+                _branch_y - 3,
+
+                _bx,
+                _branch_y + 18,
+
+                false
+            );
+
+        break;
+
+
+        // =============================================
+        // MAGIC
+        // =============================================
+
+        case "magic":
+
+            draw_line_width(
+                _bx,
+                _branch_y - 18,
+                _bx + 13,
+                _branch_y,
+                3
+            );
+
+            draw_line_width(
+                _bx + 13,
+                _branch_y,
+                _bx,
+                _branch_y + 18,
+                3
+            );
+
+            draw_line_width(
+                _bx,
+                _branch_y + 18,
+                _bx - 13,
+                _branch_y,
+                3
+            );
+
+            draw_line_width(
+                _bx - 13,
+                _branch_y,
+                _bx,
+                _branch_y - 18,
+                3
+            );
+
+            draw_line_width(
+                _bx - 20,
+                _branch_y - 15,
+                _bx - 27,
+                _branch_y - 22,
+                2
+            );
+
+            draw_line_width(
+                _bx + 20,
+                _branch_y + 15,
+                _bx + 27,
+                _branch_y + 22,
+                2
+            );
+
+        break;
+
+
+        // =============================================
+        // DASH
+        // =============================================
+
+        case "dash":
+
+            draw_line_width(
+                _bx - 18,
+                _branch_y,
+                _bx + 15,
+                _branch_y,
+                4
+            );
+
+            draw_line_width(
+                _bx + 15,
+                _branch_y,
+                _bx + 4,
+                _branch_y - 11,
+                4
+            );
+
+            draw_line_width(
+                _bx + 15,
+                _branch_y,
+                _bx + 4,
+                _branch_y + 11,
+                4
+            );
+
+            draw_line_width(
+                _bx - 22,
+                _branch_y - 11,
+                _bx - 32,
+                _branch_y - 11,
+                2
+            );
+
+            draw_line_width(
+                _bx - 22,
+                _branch_y + 11,
+                _bx - 32,
+                _branch_y + 11,
+                2
+            );
+
+        break;
+    }
+
+
+    // =================================================
+    // BRANCH TEXT
+    // ALL TEXT ON RIGHT SIDE
+    // =================================================
+
+    var _text_x =
+        _bx + _node_radius + 18;
+
+    draw_set_halign(fa_left);
+
+
+    // Name
+    draw_set_color(_col_text);
+
+    draw_text(
+        _text_x,
+        _branch_y - 8,
+        _branch.name
+    );
+
+
+    // Cost / status
+    if (_branch.unlocked)
+    {
+        draw_set_color(_col_green);
+
+        draw_text(
+            _text_x,
+            _branch_y + 13,
+            "UNLOCKED"
+        );
+    }
+    else
+    {
+        draw_set_color(_col_dim);
+
+        draw_text(
+            _text_x,
+            _branch_y + 13,
+            string(_branch.cost) + " POINT"
+        );
+    }
+
+
+    draw_set_halign(fa_center);
+
+
+    // =================================================
+    // CHILD NODE
+    // =================================================
+
+    if (array_length(_branch.children) > 0)
+    {
+        var _child =
+            _branch.children[0];
+
+
+        var _child_selected =
+            (
+                i == ability_selected &&
+                ability_tier == 1
+            );
+
+
+        // =============================================
+        // CHILD GLOW
+        // =============================================
+
+        if (_child_selected)
+        {
+            draw_set_alpha(0.06);
+
+            draw_set_color(_col_blue_bright);
+
+            draw_circle(
+                _bx,
+                _child_y,
+                64,
+                false
+            );
+
+
+            draw_set_alpha(0.10);
+
+            draw_circle(
+                _bx,
+                _child_y,
+                54,
+                false
+            );
+
+            draw_set_alpha(1);
+        }
+
+
+        // =============================================
+        // CHILD BACKGROUND
+        // =============================================
+
+        if (_child.unlocked)
+        {
+            draw_set_color(_col_unlocked);
+        }
+        else
+        {
+            draw_set_color(_col_locked);
+        }
+
+
+        draw_circle(
+            _bx,
+            _child_y,
+            _node_radius,
             false
         );
 
 
-        // -------------------------------------------------
+        // =============================================
         // CHILD BORDER
-        // -------------------------------------------------
+        // =============================================
 
         if (_child_selected)
         {
-            draw_set_color(
-                make_color_rgb(255, 210, 90)
-            );
+            draw_set_color(_col_blue_bright);
+        }
+        else if (_child.unlocked)
+        {
+            draw_set_color(_col_blue);
         }
         else
         {
             draw_set_color(
-                make_color_rgb(120, 105, 130)
+                make_color_rgb(55, 100, 115)
             );
         }
 
 
-        draw_rectangle(
-            _bx - 75,
-            _child_y - 40,
-            _bx + 75,
-            _child_y + 40,
+        draw_circle(
+            _bx,
+            _child_y,
+            _node_radius,
             true
         );
 
 
-        // -------------------------------------------------
-        // CHILD NAME
-        // -------------------------------------------------
+        // =============================================
+        // CHILD INNER RING
+        // =============================================
 
-        draw_set_color(c_white);
+        draw_set_color(
+            make_color_rgb(9, 20, 26)
+        );
+
+        draw_circle(
+            _bx,
+            _child_y,
+            _node_radius - 7,
+            false
+        );
+
+
+        draw_set_color(
+            make_color_rgb(50, 105, 120)
+        );
+
+        draw_circle(
+            _bx,
+            _child_y,
+            _node_radius - 7,
+            true
+        );
+
+
+        // =============================================
+        // CHILD ICON
+        // =============================================
+
+        draw_set_color(_col_text);
+
+
+        switch (_child.type)
+        {
+            // =========================================
+            // HEART
+            // =========================================
+
+            case "health":
+
+                draw_circle(
+                    _bx - 8,
+                    _child_y - 6,
+                    8,
+                    false
+                );
+
+                draw_circle(
+                    _bx + 8,
+                    _child_y - 6,
+                    8,
+                    false
+                );
+
+                draw_triangle(
+                    _bx - 16,
+                    _child_y - 3,
+
+                    _bx + 16,
+                    _child_y - 3,
+
+                    _bx,
+                    _child_y + 18,
+
+                    false
+                );
+
+            break;
+
+
+            // =========================================
+            // MAGIC
+            // =========================================
+
+            case "magic":
+
+                draw_line_width(
+                    _bx,
+                    _child_y - 18,
+                    _bx + 13,
+                    _child_y,
+                    3
+                );
+
+                draw_line_width(
+                    _bx + 13,
+                    _child_y,
+                    _bx,
+                    _child_y + 18,
+                    3
+                );
+
+                draw_line_width(
+                    _bx,
+                    _child_y + 18,
+                    _bx - 13,
+                    _child_y,
+                    3
+                );
+
+                draw_line_width(
+                    _bx - 13,
+                    _child_y,
+                    _bx,
+                    _child_y - 18,
+                    3
+                );
+
+            break;
+
+
+            // =========================================
+            // DASH
+            // =========================================
+
+            case "dash":
+
+                draw_line_width(
+                    _bx - 18,
+                    _child_y,
+                    _bx + 15,
+                    _child_y,
+                    4
+                );
+
+                draw_line_width(
+                    _bx + 15,
+                    _child_y,
+                    _bx + 4,
+                    _child_y - 11,
+                    4
+                );
+
+                draw_line_width(
+                    _bx + 15,
+                    _child_y,
+                    _bx + 4,
+                    _child_y + 11,
+                    4
+                );
+
+                draw_line_width(
+                    _bx - 22,
+                    _child_y - 11,
+                    _bx - 32,
+                    _child_y - 11,
+                    2
+                );
+
+                draw_line_width(
+                    _bx - 22,
+                    _child_y + 11,
+                    _bx - 32,
+                    _child_y + 11,
+                    2
+                );
+
+            break;
+        }
+
+
+        // =============================================
+        // CHILD TEXT
+        // ALL TEXT ON RIGHT SIDE
+        // =============================================
+
+        var _child_text_x =
+            _bx + _node_radius + 18;
+
+        draw_set_halign(fa_left);
+
+
+        // Child name
+        draw_set_color(_col_text);
 
         draw_text(
-            _bx,
-            _child_y - 12,
+            _child_text_x,
+            _child_y - 8,
             _child.name
         );
 
 
-        // -------------------------------------------------
-        // CHILD STATUS
-        // -------------------------------------------------
-
+        // Child status
         if (_child.unlocked)
         {
-            draw_set_color(
-                make_color_rgb(120, 230, 140)
-            );
+            draw_set_color(_col_green);
 
             draw_text(
-                _bx,
-                _child_y + 15,
+                _child_text_x,
+                _child_y + 13,
                 "UNLOCKED"
             );
         }
         else
         {
-            draw_set_color(c_white);
+            draw_set_color(_col_dim);
 
             draw_text(
-                _bx,
-                _child_y + 15,
-                string(_child.cost) + " POINT"
+                _child_text_x,
+                _child_y + 13,
+                string(_child.cost) + " POINTS"
             );
         }
+
+
+        draw_set_halign(fa_center);
     }
 }
 
@@ -854,34 +1384,168 @@ if (
 
 
 // =====================================================
-// MESSAGE AREA
+// DESCRIPTION PANEL
+// =====================================================
+
+var _desc_w = 430;
+var _desc_h = 78;
+
+var _desc_x =
+    (_gw * 0.50) -
+    (_desc_w * 0.50);
+
+var _desc_y =
+    _gh - 125;
+
+
+// =====================================================
+// DESCRIPTION BACKGROUND
+// =====================================================
+
+draw_set_alpha(0.94);
+
+draw_set_color(
+    make_color_rgb(8, 18, 24)
+);
+
+draw_rectangle(
+    _desc_x,
+    _desc_y,
+    _desc_x + _desc_w,
+    _desc_y + _desc_h,
+    false
+);
+
+draw_set_alpha(1);
+
+
+// =====================================================
+// DESCRIPTION BORDER
 // =====================================================
 
 draw_set_color(
-    make_color_rgb(190, 180, 200)
+    make_color_rgb(60, 125, 145)
 );
 
-draw_text(
-    _gw * 0.50,
-    _gh - 105,
-    "Selected: " +
-    _selected_ability.name
+draw_rectangle(
+    _desc_x,
+    _desc_y,
+    _desc_x + _desc_w,
+    _desc_y + _desc_h,
+    true
 );
 
 
 // =====================================================
-// UNLOCK MESSAGE
+// SELECTED NAME
+// =====================================================
+
+draw_set_halign(fa_center);
+
+draw_set_color(_col_blue_bright);
+
+draw_text(
+    _gw * 0.50,
+    _desc_y + 14,
+    string_upper(
+        _selected_ability.name
+    )
+);
+
+
+// =====================================================
+// DESCRIPTION
+// =====================================================
+
+var _description = "";
+
+
+switch (_selected_ability.type)
+{
+    case "health":
+
+        _description =
+            "Increase maximum health by " +
+            string(_selected_ability.value);
+
+    break;
+
+
+    case "magic":
+
+        _description =
+            "Increase maximum magic by " +
+            string(_selected_ability.value);
+
+    break;
+
+
+    case "dash":
+
+        _description =
+            "Gain +" +
+            string(_selected_ability.value) +
+            " maximum dash";
+
+    break;
+
+
+    default:
+
+        _description =
+            "Empower yourself.";
+
+    break;
+}
+
+
+draw_set_color(_col_text);
+
+draw_text(
+    _gw * 0.50,
+    _desc_y + 37,
+    _description
+);
+
+
+// =====================================================
+// COST
+// =====================================================
+
+if (_selected_ability.unlocked)
+{
+    draw_set_color(_col_green);
+
+    draw_text(
+        _gw * 0.50,
+        _desc_y + 59,
+        "UNLOCKED"
+    );
+}
+else
+{
+    draw_set_color(_col_blue);
+
+    draw_text(
+        _gw * 0.50,
+        _desc_y + 59,
+        "COST: " +
+        string(_selected_ability.cost)
+    );
+}
+
+
+// =====================================================
+// ABILITY MESSAGE
 // =====================================================
 
 if (ability_message_timer > 0)
 {
-    draw_set_color(
-        make_color_rgb(255, 210, 90)
-    );
+    draw_set_color(_col_gold);
 
     draw_text(
         _gw * 0.50,
-        _gh - 78,
+        _gh - 35,
         ability_message
     );
 }
@@ -891,14 +1555,12 @@ if (ability_message_timer > 0)
 // CONTROLS
 // =====================================================
 
-draw_set_color(
-    make_color_rgb(170, 165, 180)
-);
+draw_set_color(_col_dim);
 
 draw_text(
     _gw * 0.50,
-    _gh - 42,
-    "TAB: Close    A/D: Branch    W/S: Tier    ENTER: Unlock    P: +1 Point"
+    _gh - 14,
+    "A / D: Select     W / S: Tier     ENTER: Unlock     TAB: Close"
 );
 
 

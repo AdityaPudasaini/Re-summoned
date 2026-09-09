@@ -10,8 +10,8 @@ var _gh = display_get_gui_height();
 // BUTTON POSITION
 // ==========================================
 
-skip_x = _gw - skip_w - 25;
-skip_y = _gh - skip_h - 18;
+skip_x = _gw - skip_w - 14;
+skip_y = _gh - skip_h - 15;
 
 
 // ==========================================

@@ -1,5 +1,6 @@
 // ==========================================
-// obj_cutscene - DRAW GUI
+// oTrueEnding - DRAW GUI
+// OPAQUE MINIMAX-STYLE SKIP BUTTON
 // ==========================================
 
 var _gw = display_get_gui_width();
@@ -7,7 +8,7 @@ var _gh = display_get_gui_height();
 
 
 // ==========================================
-// BUTTON SIZE / SCALE
+// BUTTON SIZE
 // ==========================================
 
 var _cx = skip_x + skip_w * 0.5;
@@ -21,401 +22,322 @@ var _r = _cx + _w * 0.5;
 var _t = _cy - _h * 0.5;
 var _b = _cy + _h * 0.5;
 
-
-// Pointed/beveled ends
-var _cut = 25;
+var _point = 20;
 
 
 // ==========================================
-// PURPLE OUTER GLOW
+// OUTER GLOW
 // ==========================================
 
-for (var i = 5; i >= 1; i--)
+for (var i = 4; i >= 1; i--)
 {
-    var _g = i * 5;
+    var _g = i * 3;
 
     draw_set_alpha(
         skip_hover
-        ? 0.025 * (6 - i)
-        : 0.012 * (6 - i)
+        ? 0.04 * (5 - i)
+        : 0.018 * (5 - i)
     );
 
     draw_set_color(
-        make_color_rgb(145, 65, 255)
+        make_color_rgb(150, 70, 255)
     );
 
-    draw_primitive_begin(pr_trianglefan);
+    draw_primitive_begin(pr_linestrip);
 
-    draw_vertex(_cx, _cy);
-
-    draw_vertex(_l - _g + _cut, _t - _g);
-    draw_vertex(_r + _g - _cut, _t - _g);
+    draw_vertex(_l - _g + _point, _t - _g);
+    draw_vertex(_r + _g - _point, _t - _g);
     draw_vertex(_r + _g, _cy);
-    draw_vertex(_r + _g - _cut, _b + _g);
-    draw_vertex(_l - _g + _cut, _b + _g);
+    draw_vertex(_r + _g - _point, _b + _g);
+    draw_vertex(_l - _g + _point, _b + _g);
     draw_vertex(_l - _g, _cy);
-    draw_vertex(_l - _g + _cut, _t - _g);
+    draw_vertex(_l - _g + _point, _t - _g);
 
     draw_primitive_end();
 }
 
 
 // ==========================================
-// OUTER DARK SHADOW
+// SHADOW
 // ==========================================
 
-draw_set_alpha(0.75);
+draw_set_alpha(1);
 draw_set_color(c_black);
 
 draw_primitive_begin(pr_trianglefan);
 
-draw_vertex(_cx + 5, _cy + 7);
+draw_vertex(_cx + 4, _cy + 5);
 
-draw_vertex(_l - 3 + _cut, _t + 5);
-draw_vertex(_r + 3 - _cut, _t + 5);
-draw_vertex(_r + 3, _cy + 7);
-draw_vertex(_r + 3 - _cut, _b + 5);
-draw_vertex(_l - 3 + _cut, _b + 5);
-draw_vertex(_l - 3, _cy + 7);
-draw_vertex(_l - 3 + _cut, _t + 5);
+draw_vertex(_l + _point, _t + 5);
+draw_vertex(_r - _point, _t + 5);
+draw_vertex(_r, _cy + 5);
+draw_vertex(_r - _point, _b + 5);
+draw_vertex(_l + _point, _b + 5);
+draw_vertex(_l, _cy + 5);
+draw_vertex(_l + _point, _t + 5);
 
 draw_primitive_end();
 
 
 // ==========================================
-// MAIN FANTASY PANEL
+// SOLID BUTTON BACKGROUND
 // ==========================================
 
-draw_set_alpha(0.97);
+// IMPORTANT:
+// FULLY OPAQUE — HIDES WATERMARK COMPLETELY
+
+draw_set_alpha(1);
 
 draw_set_color(
-    make_color_rgb(27, 15, 38)
+    make_color_rgb(18, 10, 29)
 );
 
 draw_primitive_begin(pr_trianglefan);
 
 draw_vertex(_cx, _cy);
 
-draw_vertex(_l + _cut, _t);
-draw_vertex(_r - _cut, _t);
+draw_vertex(_l + _point, _t);
+draw_vertex(_r - _point, _t);
 draw_vertex(_r, _cy);
-draw_vertex(_r - _cut, _b);
-draw_vertex(_l + _cut, _b);
+draw_vertex(_r - _point, _b);
+draw_vertex(_l + _point, _b);
 draw_vertex(_l, _cy);
-draw_vertex(_l + _cut, _t);
+draw_vertex(_l + _point, _t);
 
 draw_primitive_end();
 
 
 // ==========================================
-// INNER PURPLE PANEL
+// SUBTLE INNER PURPLE
 // ==========================================
 
+draw_set_alpha(1);
+
 draw_set_color(
-    make_color_rgb(43, 22, 58)
+    make_color_rgb(30, 15, 45)
 );
 
 draw_primitive_begin(pr_trianglefan);
 
 draw_vertex(_cx, _cy);
 
-draw_vertex(_l + _cut + 5, _t + 5);
-draw_vertex(_r - _cut - 5, _t + 5);
+draw_vertex(_l + _point + 5, _t + 5);
+draw_vertex(_r - _point - 5, _t + 5);
 draw_vertex(_r - 5, _cy);
-draw_vertex(_r - _cut - 5, _b - 5);
-draw_vertex(_l + _cut + 5, _b - 5);
+draw_vertex(_r - _point - 5, _b - 5);
+draw_vertex(_l + _point + 5, _b - 5);
 draw_vertex(_l + 5, _cy);
-draw_vertex(_l + _cut + 5, _t + 5);
+draw_vertex(_l + _point + 5, _t + 5);
 
 draw_primitive_end();
 
 
 // ==========================================
-// GOLD OUTER BORDER
+// PURPLE OUTLINE
 // ==========================================
 
 draw_set_alpha(1);
 
 draw_set_color(
-    make_color_rgb(232, 193, 104)
+    make_color_rgb(190, 110, 255)
 );
 
 draw_primitive_begin(pr_linestrip);
 
-draw_vertex(_l + _cut, _t);
-draw_vertex(_r - _cut, _t);
+draw_vertex(_l + _point, _t);
+draw_vertex(_r - _point, _t);
 draw_vertex(_r, _cy);
-draw_vertex(_r - _cut, _b);
-draw_vertex(_l + _cut, _b);
+draw_vertex(_r - _point, _b);
+draw_vertex(_l + _point, _b);
 draw_vertex(_l, _cy);
-draw_vertex(_l + _cut, _t);
+draw_vertex(_l + _point, _t);
 
 draw_primitive_end();
 
 
 // ==========================================
-// DARK GOLD INNER BORDER
+// INNER PURPLE LINE
 // ==========================================
 
+draw_set_alpha(0.8);
+
 draw_set_color(
-    make_color_rgb(105, 70, 39)
+    make_color_rgb(105, 55, 160)
 );
 
 draw_primitive_begin(pr_linestrip);
 
-draw_vertex(_l + _cut + 5, _t + 5);
-draw_vertex(_r - _cut - 5, _t + 5);
+draw_vertex(_l + _point + 5, _t + 5);
+draw_vertex(_r - _point - 5, _t + 5);
 draw_vertex(_r - 5, _cy);
-draw_vertex(_r - _cut - 5, _b - 5);
-draw_vertex(_l + _cut + 5, _b - 5);
+draw_vertex(_r - _point - 5, _b - 5);
+draw_vertex(_l + _point + 5, _b - 5);
 draw_vertex(_l + 5, _cy);
-draw_vertex(_l + _cut + 5, _t + 5);
+draw_vertex(_l + _point + 5, _t + 5);
 
 draw_primitive_end();
 
 
 // ==========================================
-// BRIGHT INNER GOLD LINE
-// ==========================================
-
-draw_set_color(
-    make_color_rgb(248, 216, 137)
-);
-
-draw_line(
-    _l + _cut + 12,
-    _t + 8,
-    _r - _cut - 12,
-    _t + 8
-);
-
-draw_line(
-    _l + _cut + 12,
-    _b - 8,
-    _r - _cut - 12,
-    _b - 8
-);
-
-
-// ==========================================
-// CORNER ORNAMENTS
-// ==========================================
-
-var _orn = 13;
-
-
-// TOP LEFT
-draw_set_color(
-    make_color_rgb(242, 205, 120)
-);
-
-draw_triangle(
-    _l + 5,
-    _t + _orn,
-    _l + 5 + _orn,
-    _t + 5,
-    _l + 18,
-    _t + 18,
-    false
-);
-
-
-// TOP RIGHT
-draw_triangle(
-    _r - 5,
-    _t + _orn,
-    _r - 5 - _orn,
-    _t + 5,
-    _r - 18,
-    _t + 18,
-    false
-);
-
-
-// BOTTOM LEFT
-draw_triangle(
-    _l + 5,
-    _b - _orn,
-    _l + 5 + _orn,
-    _b - 5,
-    _l + 18,
-    _b - 18,
-    false
-);
-
-
-// BOTTOM RIGHT
-draw_triangle(
-    _r - 5,
-    _b - _orn,
-    _r - 5 - _orn,
-    _b - 5,
-    _r - 18,
-    _b - 18,
-    false
-);
-
-
-// ==========================================
-// CENTER DIAMOND GEM
-// ==========================================
-
-var _gem_x = _l + 52;
-var _gem_y = _cy;
-
-var _gem_size = 14;
-
-
-// Purple glow
-draw_set_alpha(0.18);
-
-draw_set_color(
-    make_color_rgb(150, 65, 255)
-);
-
-draw_circle(
-    _gem_x,
-    _gem_y,
-    27 + sin(button_pulse) * 3,
-    false
-);
-
-
-// Outer gold diamond
-draw_set_alpha(1);
-
-draw_set_color(
-    make_color_rgb(235, 197, 105)
-);
-
-draw_triangle(
-    _gem_x,
-    _gem_y - _gem_size - 5,
-    _gem_x + _gem_size + 5,
-    _gem_y,
-    _gem_x,
-    _gem_y + _gem_size + 5,
-    false
-);
-
-draw_triangle(
-    _gem_x,
-    _gem_y - _gem_size - 5,
-    _gem_x - _gem_size - 5,
-    _gem_y,
-    _gem_x,
-    _gem_y + _gem_size + 5,
-    false
-);
-
-
-// Purple crystal
-draw_set_color(
-    make_color_rgb(135, 65, 230)
-);
-
-draw_triangle(
-    _gem_x,
-    _gem_y - _gem_size,
-    _gem_x + _gem_size,
-    _gem_y,
-    _gem_x,
-    _gem_y + _gem_size,
-    false
-);
-
-draw_triangle(
-    _gem_x,
-    _gem_y - _gem_size,
-    _gem_x - _gem_size,
-    _gem_y,
-    _gem_x,
-    _gem_y + _gem_size,
-    false
-);
-
-
-// Crystal highlight
-draw_set_color(c_white);
-draw_set_alpha(0.85);
-
-draw_circle(
-    _gem_x - 4,
-    _gem_y - 5,
-    2,
-    false
-);
-
-// ==========================================
-// SKIP TEXT - BIGGER
+// SIDE DIAMONDS
 // ==========================================
 
 draw_set_alpha(1);
+
+draw_set_color(
+    make_color_rgb(200, 125, 255)
+);
+
+var _dy = _cy;
+
+
+// LEFT
+
+var _dx = _l - 8;
+
+draw_triangle(
+    _dx,
+    _dy - 4,
+    _dx + 5,
+    _dy,
+    _dx,
+    _dy + 4,
+    false
+);
+
+draw_triangle(
+    _dx,
+    _dy - 4,
+    _dx - 5,
+    _dy,
+    _dx,
+    _dy + 4,
+    false
+);
+
+
+// RIGHT
+
+_dx = _r + 8;
+
+draw_triangle(
+    _dx,
+    _dy - 4,
+    _dx + 5,
+    _dy,
+    _dx,
+    _dy + 4,
+    false
+);
+
+draw_triangle(
+    _dx,
+    _dy - 4,
+    _dx - 5,
+    _dy,
+    _dx,
+    _dy + 4,
+    false
+);
+
+
+// ==========================================
+// SKIP ICON
+// ==========================================
+
+var _icon_x = _cx - 55;
+var _icon_y = _cy;
+
+draw_set_alpha(1);
+
+draw_set_color(
+    make_color_rgb(240, 220, 255)
+);
+
+
+// First triangle
+
+draw_triangle(
+    _icon_x - 13,
+    _icon_y - 10,
+    _icon_x - 13,
+    _icon_y + 10,
+    _icon_x - 1,
+    _icon_y,
+    false
+);
+
+
+// Second triangle
+
+draw_triangle(
+    _icon_x + 1,
+    _icon_y - 10,
+    _icon_x + 1,
+    _icon_y + 10,
+    _icon_x + 13,
+    _icon_y,
+    false
+);
+
+
+// ==========================================
+// SKIP TEXT
+// ==========================================
 
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 
-
-// Text glow when hovering
-if (skip_hover)
-{
-    draw_set_alpha(0.35);
-
-    draw_set_color(
-        make_color_rgb(170, 80, 255)
-    );
-
-    draw_text_transformed(
-        _cx + 35,
-        _cy + 1,
-        "SKIP  >>",
-        1.35,
-        1.35,
-        0
-    );
-}
-
-
-// Main large gold text
-draw_set_alpha(1);
-
 draw_set_color(
-    make_color_rgb(249, 224, 165)
+    make_color_rgb(240, 220, 255)
 );
 
+draw_set_alpha(1);
+
 draw_text_transformed(
-    _cx + 35,
+    _cx + 28,
     _cy,
-    "SKIP  >>",
-    1.35,
-    1.35,
+    "SKIP",
+    1.15,
+    1.15,
     0
 );
 
 
 // ==========================================
-// WHITE FLASH
+// HOVER EFFECT
 // ==========================================
 
-if (flash_alpha > 0)
+if (skip_hover)
 {
-    draw_set_alpha(flash_alpha);
-    draw_set_color(c_white);
+    draw_set_alpha(0.15);
 
-    draw_rectangle(
-        0,
-        0,
-        _gw,
-        _gh,
-        false
+    draw_set_color(
+        make_color_rgb(160, 75, 255)
     );
 
-    draw_set_alpha(1);
+    draw_primitive_begin(pr_trianglefan);
+
+    draw_vertex(_cx, _cy);
+
+    draw_vertex(_l + _point, _t);
+    draw_vertex(_r - _point, _t);
+    draw_vertex(_r, _cy);
+    draw_vertex(_r - _point, _b);
+    draw_vertex(_l + _point, _b);
+    draw_vertex(_l, _cy);
+    draw_vertex(_l + _point, _t);
+
+    draw_primitive_end();
 }
 
 
-// Reset
+// ==========================================
+// RESET
+// ==========================================
+
 draw_set_alpha(1);
 draw_set_color(c_white);
+
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
