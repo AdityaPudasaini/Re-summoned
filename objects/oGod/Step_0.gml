@@ -24,6 +24,7 @@ if (boss_hp <= 0)
     boss_active = false;
     solid = false;
     visible = false;
+	room_goto(rTrueEnding);
     exit;
 }
 var _player = instance_find(oPlayer, 0);
