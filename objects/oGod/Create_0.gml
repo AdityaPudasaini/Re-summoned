@@ -1,16 +1,19 @@
 /// @description God boss initialization
 
 boss_name = "God";
-maxHealth = 1500;
-health = maxHealth;
-max_health = maxHealth;
+
+// Same HP system as Demon King / Fire Boss
+boss_max_hp = 1500;
+boss_hp = boss_max_hp;
+max_health = boss_max_hp;
+
 solid = false;
 boss_active = true;
 facingDirection = 0;
 hurt_flash = 0;
 
 // Small physical body collision used by PlayerCollision().
-god_collision_radius = 25;
+god_collision_radius = 100;
 collisionRadius = god_collision_radius;
 swordDamage = 25;
 fireballDamage = 20;
@@ -85,7 +88,6 @@ spreadProjectileArc = 45;
 spreadWaveCount = 3;
 spreadWaveDelay = 18;
 spreadWaveRotation = 22.5;
-
 
 image_xscale = 0.5;
 image_yscale = 0.5;

@@ -5,7 +5,7 @@ if (!boss_active)
     exit;
 }
 
-health = clamp(health, 0, maxHealth);
+boss_hp = clamp(boss_hp, 0, boss_max_hp);
 
 if (hurt_flash > 0)
 {
@@ -18,16 +18,20 @@ if (spreadCooldown > 0) spreadCooldown--;
 if (attackRecovery > 0) attackRecovery--;
 if (contactDamageCooldown > 0) contactDamageCooldown--;
 
-if (health <= 0)
+if (boss_hp <= 0)
 {
-    health = 0;
+    boss_hp = 0;
     boss_active = false;
     solid = false;
     visible = false;
     exit;
 }
-
 var _player = instance_find(oPlayer, 0);
+
+if (instance_exists(_player))
+{
+    show_debug_message(object_get_name(_player.object_index));
+}
 
 if (!instance_exists(_player))
 {
@@ -66,27 +70,49 @@ var _distance = point_distance(x, y, _player.x, _player.y);
 
 if (closeAttacking)
 {
+    show_debug_message("CLOSE ATTACK ACTIVE");
+
     hspeed = 0;
     vspeed = 0;
     image_speed = closeAttackImageSpeed;
 
     if (!closeAttackHit && image_index >= closeAttackHitFrame)
     {
-        // Use a generous distance-based hit check instead of relying on
-        // collision masks. This makes the attack reliably hit the player
-        // even when the boss/player sprites have different mask sizes.
-        var _hit = point_distance(x, y, _player.x, _player.y) <= closeAttackHitDistance;
+        var _hit =
+            point_distance(x, y, _player.x, _player.y)
+            <= closeAttackHitDistance;
 
-        if (_hit
-        && variable_instance_exists(_player, "health")
-        && variable_instance_exists(_player, "invincible")
-        && variable_instance_exists(_player, "isHurt")
-        && !_player.invincible && !_player.isHurt)
+        if (_hit)
         {
-            _player.health = max(0, _player.health - closeAttackDamage);
-            _player.isHurt = true;
-            _player.image_index = 0;
-            _player.image_speed = 1;
+            show_debug_message("HIT RANGE");
+            show_debug_message("invincible = " + string(_player.invincible));
+            show_debug_message("isHurt = " + string(_player.isHurt));
+
+            if (instance_exists(_player))
+			{
+			    show_debug_message("PLAYER EXISTS");
+
+			    if (variable_instance_exists(_player, "health"))
+			    {
+			        show_debug_message("HEALTH EXISTS");
+
+			        if (!_player.invincible && !_player.isHurt)
+			        {
+			            show_debug_message("DAMAGE APPLIED");
+
+			            _player.health -= closeAttackDamage;
+			            _player.isHurt = true;
+			        }
+			    }
+			    else
+			    {
+			        show_debug_message("NO HEALTH VARIABLE");
+			    }
+			}
+			else
+			{
+			    show_debug_message("PLAYER INSTANCE MISSING");
+			}
         }
 
         closeAttackHit = true;
@@ -252,6 +278,8 @@ else
 // CLOSE: 0-110 px
 if (_distance <= closeRangeMax && closeAttackCooldown <= 0 && attackRecovery <= 0)
 {
+	show_debug_message("STARTING CLOSE ATTACK");
+	
     closeAttacking = true;
     attackRecovery = 45;
     closeAttackHit = false;

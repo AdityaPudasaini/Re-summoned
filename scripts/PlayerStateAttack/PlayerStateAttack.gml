@@ -75,60 +75,63 @@ function PlayerStateAttack()
     }
 
     // =====================================================
-    // SWORD DAMAGE - GOD
-    // =====================================================
-    // Same pattern as Demon Lord: one hit per sword swing,
-    // but every new swing resets attackHit in PlayerStateFree.
-    if (!attackHit)
+// SWORD DAMAGE - GOD
+// =====================================================
+
+if (!attackHit)
+{
+    var _god = instance_nearest(x, y, oGod);
+
+    if (_god != noone
+    && variable_instance_exists(_god, "boss_hp")
+    && variable_instance_exists(_god, "boss_active")
+    && _god.boss_active)
     {
-        var _god = instance_nearest(x, y, oGod);
+        var _godDistance = point_distance(x, y, _god.x, _god.y);
 
-        if (_god != noone && variable_instance_exists(_god, "health") && variable_instance_exists(_god, "boss_active") && _god.boss_active)
+        if (_godDistance <= 125)
         {
-            var _godDistance = point_distance(x, y, _god.x, _god.y);
+            var _godCanHit = false;
 
-            if (_godDistance <= 125)
+            switch (attackDirection)
             {
-                var _godCanHit = false;
+                case 2:
+                    _godCanHit =
+                        _god.x < x &&
+                        abs(_god.x - x) <= 125 &&
+                        abs(_god.y - y) <= 70;
+                    break;
 
-                switch (attackDirection)
+                case 3:
+                    _godCanHit =
+                        _god.x > x &&
+                        abs(_god.x - x) <= 125 &&
+                        abs(_god.y - y) <= 70;
+                    break;
+            }
+
+            if (_godCanHit)
+            {
+                var _godDamage = 25;
+
+                if (variable_instance_exists(_god, "swordDamage"))
                 {
-                    case 2:
-                        _godCanHit =
-                            _god.x < x &&
-                            abs(_god.x - x) <= 125 &&
-                            abs(_god.y - y) <= 70;
-                        break;
-
-                    case 3:
-                        _godCanHit =
-                            _god.x > x &&
-                            abs(_god.x - x) <= 125 &&
-                            abs(_god.y - y) <= 70;
-                        break;
+                    _godDamage = _god.swordDamage;
                 }
 
-                if (_godCanHit)
+                _god.boss_hp = max(0, _god.boss_hp - _godDamage);
+
+                if (variable_instance_exists(_god, "hurt_flash"))
                 {
-                    var _godDamage = 25;
-
-                    if (variable_instance_exists(_god, "swordDamage"))
-                    {
-                        _godDamage = _god.swordDamage;
-                    }
-
-                    _god.health = max(0, _god.health - _godDamage);
-
-                    if (variable_instance_exists(_god, "hurt_flash"))
-                    {
-                        _god.hurt_flash = 6;
-                    }
-
-                    attackHit = true;
+                    _god.hurt_flash = 6;
                 }
+
+                attackHit = true;
             }
         }
     }
+}
+   
 
     var _frameCount = sprite_get_number(sprite_index);
 

@@ -133,10 +133,12 @@ if (
 // =====================================================
 // HIT GOD
 // =====================================================
-
 var _god = instance_find(oGod, 0);
 
-if (_god != noone && variable_instance_exists(_god, "health") && variable_instance_exists(_god, "boss_active") && _god.boss_active)
+if (_god != noone
+&& variable_instance_exists(_god, "boss_hp")
+&& variable_instance_exists(_god, "boss_active")
+&& _god.boss_active)
 {
     var _godDistance = point_distance(x, y, _god.x, _god.y);
 
@@ -151,7 +153,7 @@ if (_god != noone && variable_instance_exists(_god, "health") && variable_instan
 
         with (_god)
         {
-            health = max(0, health - _damage);
+            boss_hp = max(0, boss_hp - _damage);
             hurt_flash = 6;
         }
 
@@ -159,7 +161,6 @@ if (_god != noone && variable_instance_exists(_god, "health") && variable_instan
         exit;
     }
 }
-
 
 // =====================================================
 // COLLISION WITH COL TILEMAP

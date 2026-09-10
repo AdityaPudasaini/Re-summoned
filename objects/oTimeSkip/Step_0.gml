@@ -102,17 +102,13 @@ if (intro_phase == 2)
 // PHASE 3 - VIDEO FINISHED
 // KEEP MUSIC PLAYING FOR 3 SECONDS
 // =====================================================
-
 if (intro_phase == 3)
 {
     music_stop_timer--;
 
     if (music_stop_timer <= 0)
     {
-        audio_stop_sound(sndTrueFinalTheme);
-
-        // The true-ending cutscene is complete.
-        // Enter the actual God boss arena.
+        intro_phase = 4; // prevent repeated calls
         room_goto(GodBossRoom);
     }
 }

@@ -1,5 +1,7 @@
 text_timer = 0;
 
+presistence = true;
+
 text_duration = room_speed * 3;
 
 text_alpha = 0;
