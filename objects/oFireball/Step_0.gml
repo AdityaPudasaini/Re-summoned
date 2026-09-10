@@ -131,6 +131,37 @@ if (
 
 
 // =====================================================
+// HIT GOD
+// =====================================================
+
+var _god = instance_find(oGod, 0);
+
+if (_god != noone && variable_instance_exists(_god, "health") && variable_instance_exists(_god, "boss_active") && _god.boss_active)
+{
+    var _godDistance = point_distance(x, y, _god.x, _god.y);
+
+    if (_godDistance <= _god.collisionRadius + 16)
+    {
+        var _damage = 20;
+
+        if (variable_instance_exists(_god, "fireballDamage"))
+        {
+            _damage = _god.fireballDamage;
+        }
+
+        with (_god)
+        {
+            health = max(0, health - _damage);
+            hurt_flash = 6;
+        }
+
+        instance_destroy();
+        exit;
+    }
+}
+
+
+// =====================================================
 // COLLISION WITH COL TILEMAP
 // =====================================================
 

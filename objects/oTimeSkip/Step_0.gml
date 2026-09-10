@@ -111,6 +111,8 @@ if (intro_phase == 3)
     {
         audio_stop_sound(sndTrueFinalTheme);
 
-        instance_destroy();
+        // The true-ending cutscene is complete.
+        // Enter the actual God boss arena.
+        room_goto(GodBossRoom);
     }
 }
