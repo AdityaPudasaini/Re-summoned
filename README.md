@@ -1,4 +1,4 @@
-<img width="1351" height="792" alt="image" src="https://github.com/user-attachments/assets/04deb3e9-815e-4ba0-b20c-33fcc74d9ac4" /># ⚔️ Re-summoned
+# ⚔️ Re-summoned
 
 > **A dark fantasy action RPG about death, reincarnation, and the price of freedom.**
 
