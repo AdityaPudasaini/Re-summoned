@@ -1,4 +1,4 @@
-# ⚔️ Re-summoned
+<img width="1351" height="792" alt="image" src="https://github.com/user-attachments/assets/04deb3e9-815e-4ba0-b20c-33fcc74d9ac4" /># ⚔️ Re-summoned
 
 > **A dark fantasy action RPG about death, reincarnation, and the price of freedom.**
 
@@ -535,23 +535,26 @@ The Options menu allows the player to independently adjust:
 
 ### Main Menu
 
+<img width="1353" height="791" alt="image" src="https://github.com/user-attachments/assets/af4c9ba8-2af9-45f3-8d1c-dfaa5bb0058b" />
+
 <!-- Add screenshot here:
 ![Main Menu](screenshots/main-menu.png)
 -->
 
 ### Gameplay
 
+<img width="1355" height="790" alt="image" src="https://github.com/user-attachments/assets/3fd567bb-fe4b-4022-b7c2-6bae8a616ad9" />
+
+<img width="1352" height="787" alt="image" src="https://github.com/user-attachments/assets/70d35f43-dab2-4dee-9e88-37e12df1f8f3" />
+
 <!-- Add screenshot here:
 ![Gameplay](screenshots/gameplay.png)
 -->
 
-### Combat
-
-<!-- Add screenshot here:
-![Combat](screenshots/combat.png)
--->
 
 ### Ability Tree
+
+<img width="1351" height="792" alt="image" src="https://github.com/user-attachments/assets/24575c6a-0e89-48ef-a20a-bd18df207656" />
 
 <!-- Add screenshot here:
 ![Ability Tree](screenshots/ability-tree.png)
@@ -559,11 +562,15 @@ The Options menu allows the player to independently adjust:
 
 ### Fire Boss
 
+<img width="1347" height="795" alt="image" src="https://github.com/user-attachments/assets/1b1b2aab-112d-4790-a2b1-970e3f1397d1" />
+
 <!-- Add screenshot here:
 ![Fire Boss](screenshots/fire-boss.png)
 -->
 
 ### Demon Lord
+
+<img width="1342" height="776" alt="image" src="https://github.com/user-attachments/assets/7f77c40c-26b3-4e57-9637-b7e68766d877" />
 
 <!-- Add screenshot here:
 ![Demon Lord](screenshots/demon-lord.png)
@@ -571,11 +578,17 @@ The Options menu allows the player to independently adjust:
 
 ### God Boss
 
+<img width="1351" height="792" alt="image" src="https://github.com/user-attachments/assets/502ea87f-8740-445a-b0ca-b6ceb645e8dc" />
+
 <!-- Add screenshot here:
 ![God Boss](screenshots/god-boss.png)
 -->
 
 ### Ending / Story
+
+<img width="1351" height="787" alt="image" src="https://github.com/user-attachments/assets/94cbf785-8be4-40cd-aa3d-d7eb2bf3884f" />
+
+<img width="1342" height="790" alt="image" src="https://github.com/user-attachments/assets/8acd80bd-acf2-4eb3-9a2a-19bc104c9310" />
 
 <!-- Add screenshot here:
 ![Ending](screenshots/ending.png)
@@ -741,6 +754,8 @@ See [`LICENSE`](LICENSE) for the complete license text.
 # 👤 Author
 
 **Aditya Pudasaini**
+
+**Arjan Regmi**
 
 ---
 
